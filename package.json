@@ -1,0 +1,11 @@
+{
+  "name": "rustdht-wasm-example",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "wasm-pack build --target web",
+    "serve": "http-server www -p 8080"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

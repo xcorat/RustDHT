@@ -1,4 +1,4 @@
-import init, { start_client, connect_to_server } from '../pkg/rustdht.js';
+import init, { start_client, connect_to_server, send_message } from '../pkg/rustdht.js';
 
 let clientStarted = false;
 
@@ -13,11 +13,29 @@ function log(message) {
   }
 }
 
+function addMessage(peerId, message, isSent = false) {
+  const messagesDiv = document.getElementById('messages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
+  messageDiv.textContent = `${peerId.slice(0, 8)}: ${message}`;
+  messagesDiv.appendChild(messageDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
 async function run() {
   try {
     log('🚀 Initializing WASM module...');
     await init();
     log('✅ WASM module initialized successfully!');
+
+    // Listen for P2P messages
+    window.addEventListener('p2p-message', (event) => {
+      const messageData = window.lastP2PMessage;
+      if (messageData) {
+        const [peerId, message] = messageData.split(':', 2);
+        addMessage(peerId, message);
+      }
+    });
     
     // Set up event listeners
     document.getElementById('start-client').addEventListener('click', () => {
@@ -30,6 +48,7 @@ async function run() {
           document.getElementById('start-client').disabled = true;
           document.getElementById('restart-client').disabled = false;
           document.getElementById('connect-btn').disabled = false;
+          document.getElementById('send-message').disabled = false;
           log('✅ P2P client started successfully!');
         } catch (error) {
           log('❌ Failed to start client: ' + error);
@@ -63,6 +82,28 @@ async function run() {
 
     document.getElementById('clear-log').addEventListener('click', () => {
       document.getElementById('log').textContent = '';
+    });
+
+    // Handle message sending
+    document.getElementById('send-message').addEventListener('click', () => {
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value.trim();
+      if (message) {
+        try {
+          send_message(message);
+          addMessage('You', message, true);
+          messageInput.value = '';
+        } catch (error) {
+          log('❌ Failed to send message: ' + error);
+        }
+      }
+    });
+
+    // Handle Enter key in message input
+    document.getElementById('message-input').addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        document.getElementById('send-message').click();
+      }
     });
 
     log('🌟 Ready! Click "Start P2P Client" to begin.');

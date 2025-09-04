@@ -1,6 +1,7 @@
 use futures::stream::StreamExt;
 use libp2p::{
     core::upgrade,
+    gossipsub::{self, MessageAuthenticity, ValidationMode},
     identity,
     noise,
     ping,
@@ -45,8 +46,32 @@ async fn main() -> Result<(), Box<dyn Error>> {
         })
         .boxed();
 
-    // Create behaviour
-    let behaviour = ping::Behaviour::new(ping::Config::new().with_interval(Duration::from_secs(1)));
+    // Create GossipSub configuration
+    let gossipsub_config = gossipsub::ConfigBuilder::default()
+        .heartbeat_interval(Duration::from_secs(1))
+        .validation_mode(ValidationMode::Strict)
+        .build()
+        .expect("Valid config");
+
+    // Create GossipSub behavior
+    let mut gossipsub = gossipsub::Behaviour::new(MessageAuthenticity::Signed(local_key.clone()), gossipsub_config)
+        .expect("Valid configuration");
+
+    // Create a topic for chat messages
+    let chat_topic = gossipsub::IdentTopic::new("chat");
+    gossipsub.subscribe(&chat_topic).expect("Valid subscription");
+
+    // Create ping behavior
+    let ping = ping::Behaviour::new(ping::Config::new().with_interval(Duration::from_secs(1)));
+
+    // Combine behaviors
+    #[derive(libp2p::swarm::NetworkBehaviour)]
+    struct MyBehaviour {
+        ping: ping::Behaviour,
+        gossipsub: gossipsub::Behaviour,
+    }
+
+    let behaviour = MyBehaviour { ping, gossipsub };
 
     // Create swarm
     let mut swarm = Swarm::new(
@@ -84,8 +109,15 @@ async fn main() -> Result<(), Box<dyn Error>> {
             SwarmEvent::OutgoingConnectionError { connection_id, peer_id, error } => {
                 println!("❌ Outgoing connection error to {:?} ({}): {}", peer_id, connection_id, error);
             }
-            SwarmEvent::Behaviour(event) => {
+            SwarmEvent::Behaviour(MyBehaviourEvent::Ping(event)) => {
                 println!("🏓 Ping event: {event:?}");
+            }
+            SwarmEvent::Behaviour(MyBehaviourEvent::Gossipsub(gossipsub::Event::Message {
+                propagation_source: peer_id,
+                message_id: _,
+                message,
+            })) => {
+                println!("💬 Message from {}: {}", peer_id, String::from_utf8_lossy(&message.data));
             }
             SwarmEvent::Dialing { peer_id, connection_id } => {
                 println!("📞 Dialing peer {:?} (connection {})", peer_id, connection_id);

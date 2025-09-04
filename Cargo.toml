@@ -23,6 +23,7 @@ libp2p = { git = "https://github.com/libp2p/rust-libp2p", features = [
     "ed25519",
     "gossipsub",
     "kad",
+    "macros",
     "mdns", 
     "noise",
     "ping",
@@ -42,10 +43,12 @@ libp2p = { git = "https://github.com/libp2p/rust-libp2p", features = [
     "ed25519",
     "gossipsub",
     "kad", 
+    "macros",
     "noise",
     "ping",
     "yamux",
-    "wasm-bindgen"
+    "wasm-bindgen",
+    "serde"
 ] }
 libp2p-webrtc-websys = { git = "https://github.com/libp2p/rust-libp2p", package = "libp2p-webrtc-websys" }
 getrandom = { version = "0.3", features = ["wasm_js"] }

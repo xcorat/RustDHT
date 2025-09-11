@@ -1,0 +1,65 @@
+app = "rustdht-p2p"
+primary_region = "ord"
+
+[build]
+
+[env]
+  RUST_LOG = "info"
+
+[http_service]
+  internal_port = 8080
+  force_https = false
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["http", "tls"]
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1s"
+
+# WebRTC UDP service
+[[services]]
+  protocol = "udp"
+  internal_port = 9090
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 9090
+
+[vm]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "256mb"
+
+[restart]
+  policy = "on-failure"
+
+[[processes]]
+  name = "app"
+  entrypoint = ["/usr/local/bin/rustdht-server"]

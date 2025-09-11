@@ -1,0 +1,32 @@
+# Build artifacts
+/target
+/pkg
+/node_modules
+
+# Documentation
+/docs
+README.md
+*.md
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Web assets (not needed for server)
+/www
+
+# Deployment files
+Dockerfile
+.dockerignore
+fly.toml
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -15,9 +15,8 @@ use libp2p_webrtc as webrtc;
 use std::error::Error;
 use std::time::Duration;
 
-// Server configuration
-const TCP_PORT: u16 = 8080;
-const WEBRTC_PORT: u16 = 9090;
+// Server configuration - Signaling server on port 9090
+const SIGNALING_PORT: u16 = 9090;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -85,17 +84,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
         libp2p::swarm::Config::with_tokio_executor().with_idle_connection_timeout(Duration::from_secs(5)),
     );
 
-    // Listen on TCP for native connections
-    swarm.listen_on(format!("/ip4/0.0.0.0/tcp/{}", TCP_PORT).parse()?)?;
-    
-    // Listen on WebRTC for browser connections
-    swarm.listen_on(format!("/ip4/0.0.0.0/udp/{}/webrtc-direct", WEBRTC_PORT).parse()?)?;
+    // Listen on WebRTC for browser signaling and P2P connections
+    swarm.listen_on(format!("/ip4/0.0.0.0/udp/{}/webrtc-direct", SIGNALING_PORT).parse()?)?;
 
-    println!("\n=== RustDHT Server Starting ===");
+    println!("\n=== RustDHT Signaling Server Starting ===");
     println!("🔑 Local peer id: {:?}", swarm.local_peer_id());
-    println!("🌐 TCP port: {}", TCP_PORT);
-    println!("🌐 WebRTC port: {}", WEBRTC_PORT);
-    println!("===============================\n");
+    println!("🌐 Signaling port: {}", SIGNALING_PORT);
+    println!("=========================================\n");
 
     loop {
         match swarm.select_next_some().await {

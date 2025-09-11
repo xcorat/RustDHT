@@ -17,7 +17,7 @@ use std::time::Duration;
 
 // Server configuration
 const TCP_PORT: u16 = 8080;
-const WEBRTC_PORT: u16 = 0;
+const WEBRTC_PORT: u16 = 9090;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {

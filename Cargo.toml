@@ -3,8 +3,18 @@ name = "rustdht"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+default = []
+native = []
+
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+# Exclude server binary from WASM builds
+[[bin]]
+name = "server"
+path = "src/bin/server.rs"
+required-features = ["native"]
 
 [dependencies]
 wasm-bindgen = "0.2"
@@ -44,7 +54,6 @@ libp2p = { git = "https://github.com/libp2p/rust-libp2p", features = [
     "gossipsub",
     "kad", 
     "macros",
-    "noise",
     "ping",
     "yamux",
     "wasm-bindgen",

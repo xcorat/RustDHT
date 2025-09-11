@@ -47,7 +47,7 @@ pub fn start_client() {
         
         console::log_1(&format!("Local peer id: {}", local_peer_id).into());
         
-        // Create WebRTC transport
+        // Create WebRTC transport for browser-to-browser and browser-to-server WebRTC connections
         let transport = webrtc_websys::Transport::new(
             webrtc_websys::Config::new(&local_key)
         )
@@ -222,11 +222,19 @@ pub fn connect_to_server(multiaddr: String) {
         Ok(addr) => {
             console::log_1(&format!("✅ Parsed multiaddr: {}", addr).into());
             
+                // Detect transport type from address (WASM only supports WebRTC)
+            let transport_type = if addr.to_string().contains("/webrtc-direct") {
+                "WebRTC"
+            } else {
+                "WebRTC (fallback)"
+            };
+            console::log_1(&format!("🔍 Using {} transport", transport_type).into());
+            
             // Send dial command through the channel
             if let Some(sender) = COMMAND_SENDER.get() {
                 match sender.unbounded_send(SwarmCommand::Dial(addr.clone())) {
                     Ok(_) => {
-                        console::log_1(&format!("📡 Connection command sent for {}", addr).into());
+                        console::log_1(&format!("📡 Connection command sent for {} (using {})", addr, transport_type).into());
                     }
                     Err(e) => {
                         console::log_1(&format!("❌ Failed to send dial command: {}", e).into());

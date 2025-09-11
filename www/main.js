@@ -49,9 +49,10 @@ async function run() {
           document.getElementById('restart-client').disabled = false;
           document.getElementById('connect-btn').disabled = false;
           document.getElementById('send-message').disabled = false;
+          document.getElementById('message-input').disabled = false;
           log('✅ P2P client started successfully!');
         } catch (error) {
-          log('❌ Failed /to start client: ' + error);
+          log('❌ Failed to start client: ' + error);
         }
       }
     });

@@ -5,7 +5,7 @@
 # Rust
 /target/
 **/*.rs.bk
-Cargo.lock
+# Note: Cargo.lock should be committed for applications (not libraries)
 
 # Node.js
 /node_modules/

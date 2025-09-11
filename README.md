@@ -23,6 +23,8 @@ A P2P networking implementation using Rust and libp2p, with WebRTC support for b
 
 ## Building
 
+### Development Build
+
 1. Build WASM module:
 ```bash
 wasm-pack build
@@ -32,6 +34,33 @@ wasm-pack build
 ```bash
 cargo build
 ```
+
+### Release Build
+
+1. Build optimized release version:
+```bash
+cargo build --release
+```
+
+2. Cross-platform builds:
+```bash
+# Install target toolchains
+rustup target add x86_64-pc-windows-gnu
+rustup target add x86_64-apple-darwin
+
+# Build for Windows
+cargo build --release --target x86_64-pc-windows-gnu
+
+# Build for macOS
+cargo build --release --target x86_64-apple-darwin
+```
+
+3. Docker build:
+```bash
+docker build -t rustdht-server .
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
 
 ## Running
 

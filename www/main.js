@@ -1,4 +1,4 @@
-import init, { start_client, connect_to_server, send_message } from '../pkg/rustdht.js';
+import init, { start_client, connect_to_server, send_message } from './pkg/rustdht.js';
 
 let clientStarted = false;
 
@@ -51,7 +51,7 @@ async function run() {
           document.getElementById('send-message').disabled = false;
           log('✅ P2P client started successfully!');
         } catch (error) {
-          log('❌ Failed to start client: ' + error);
+          log('❌ Failed /to start client: ' + error);
         }
       }
     });

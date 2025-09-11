@@ -15,6 +15,10 @@ use libp2p_webrtc as webrtc;
 use std::error::Error;
 use std::time::Duration;
 
+// Server configuration
+const TCP_PORT: u16 = 8080;
+const WEBRTC_PORT: u16 = 0;
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     env_logger::init();
@@ -82,12 +86,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
     );
 
     // Listen on TCP for native connections
-    swarm.listen_on("/ip4/0.0.0.0/tcp/0".parse()?)?;
+    swarm.listen_on(format!("/ip4/0.0.0.0/tcp/{}", TCP_PORT).parse()?)?;
     
     // Listen on WebRTC for browser connections
-    swarm.listen_on("/ip4/0.0.0.0/udp/0/webrtc-direct".parse()?)?;
+    swarm.listen_on(format!("/ip4/0.0.0.0/udp/{}/webrtc-direct", WEBRTC_PORT).parse()?)?;
 
-    println!("Local peer id: {:?}", swarm.local_peer_id());
+    println!("\n=== RustDHT Server Starting ===");
+    println!("🔑 Local peer id: {:?}", swarm.local_peer_id());
+    println!("🌐 TCP port: {}", TCP_PORT);
+    println!("🌐 WebRTC port: {}", WEBRTC_PORT);
+    println!("===============================\n");
 
     loop {
         match swarm.select_next_some().await {

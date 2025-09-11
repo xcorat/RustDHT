@@ -85,7 +85,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     );
 
     // Listen on WebRTC for browser signaling and P2P connections
+    // IPv4
     swarm.listen_on(format!("/ip4/0.0.0.0/udp/{}/webrtc-direct", SIGNALING_PORT).parse()?)?;
+    // IPv6
+    swarm.listen_on(format!("/ip6/::/udp/{}/webrtc-direct", SIGNALING_PORT).parse()?)?;
 
     println!("\n=== RustDHT Signaling Server Starting ===");
     println!("🔑 Local peer id: {:?}", swarm.local_peer_id());

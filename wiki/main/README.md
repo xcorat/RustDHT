@@ -271,12 +271,21 @@ Deep dives into specific technical aspects:
 
 ## Content Principles
 
+### Honest and Transparent
+
+- **Acknowledge limitations**: RustDHT is a simple prototype, not production-ready
+- **Technical challenges**: libp2p Rust incomplete, IPFS has performance issues, GunDB codebase complexity
+- **Infrastructure reality**: Most computing remains centralized (cloud, DNS, backbone)
+- **Start small philosophy**: Prove concepts at modest scale, grow resilience through adoption
+- **One among many**: RustDHT is one approach in diverse ecosystem (Matrix, Nostr, SSB, Mastodon, etc.)
+
 ### Explanatory, Not Promotional
 
 - Focus on understanding over persuasion
-- Acknowledge trade-offs and challenges
+- Acknowledge trade-offs and challenges openly
 - Credit existing projects generously
 - Maintain technical accuracy
+- Realistic about current capabilities
 
 ### Community-Focused
 
@@ -284,6 +293,7 @@ Deep dives into specific technical aspects:
 - Highlight diverse participation
 - Celebrate contributions
 - Build movement, not market share
+- Part of broader decentralization ecosystem
 
 ### Technically Rigorous
 
@@ -291,6 +301,7 @@ Deep dives into specific technical aspects:
 - Explain concepts thoroughly
 - Provide implementation details
 - Link to further reading
+- Honest about what works and what doesn't
 
 ### Accessible Yet Deep
 
@@ -298,6 +309,7 @@ Deep dives into specific technical aspects:
 - Use examples and analogies
 - Provide progressive disclosure
 - Offer paths for deeper exploration
+- Maintain humility about limitations
 
 ## Maintenance and Updates
 

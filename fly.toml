@@ -6,6 +6,14 @@ primary_region = "ord"
 [env]
   RUST_LOG = "info"
 
+# HTTP service (required for health checks)
+[http_service]
+  internal_port = 8080
+  force_https = false
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
 # UDP service for WebRTC signaling
 [[services]]
   protocol = "udp"
@@ -14,7 +22,19 @@ primary_region = "ord"
   [[services.ports]]
     port = 9090
 
+# TCP service for HTTP health checks
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  
+  [[services.ports]]
+    port = 8080
+
 [vm]
   cpu_kind = "shared"
   cpus = 1
-  memory = "256mb"
+  memory = "512mb"
+
+# Ensure we get an IPv4 address
+[experimental]
+  auto_rollback = true

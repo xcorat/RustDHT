@@ -14,9 +14,11 @@ use libp2p::{
 use libp2p_webrtc as webrtc;
 use std::error::Error;
 use std::time::Duration;
+use tokio::net::TcpListener;
 
 // Server configuration - Signaling server on port 9090
 const SIGNALING_PORT: u16 = 9090;
+const HTTP_PORT: u16 = 8080;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -90,9 +92,28 @@ async fn main() -> Result<(), Box<dyn Error>> {
     // IPv6
     swarm.listen_on(format!("/ip6/::/udp/{}/webrtc-direct", SIGNALING_PORT).parse()?)?;
 
+    // Start HTTP health check server
+    let http_listener = TcpListener::bind(format!("0.0.0.0:{}", HTTP_PORT)).await?;
+    tokio::spawn(async move {
+        loop {
+            match http_listener.accept().await {
+                Ok((mut stream, _)) => {
+                    tokio::spawn(async move {
+                        use tokio::io::AsyncWriteExt;
+                        let response = "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK";
+                        let _ = stream.write_all(response.as_bytes()).await;
+                        let _ = stream.shutdown().await;
+                    });
+                }
+                Err(e) => eprintln!("Failed to accept HTTP connection: {}", e),
+            }
+        }
+    });
+
     println!("\n=== RustDHT Signaling Server Starting ===");
     println!("🔑 Local peer id: {:?}", swarm.local_peer_id());
     println!("🌐 Signaling port: {}", SIGNALING_PORT);
+    println!("🌐 HTTP health check port: {}", HTTP_PORT);
     println!("=========================================\n");
 
     loop {

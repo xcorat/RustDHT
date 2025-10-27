@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RustDHT Signaling Server</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      .status {
+        margin: 20px 0;
+        padding: 10px;
+        border-radius: 4px;
+        background: #e8f5e8;
+        border: 1px solid #4CAF50;
+      }
+      #connections {
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #fff;
+      }
+      .peer {
+        padding: 10px;
+        margin: 5px 0;
+        background: #f9f9f9;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #log {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        height: 200px;
+        overflow-y: scroll;
+        font-family: monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
+      .controls {
+        margin: 20px 0;
+      }
+      button {
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      button:hover {
+        background: #45a049;
+      }
+      button:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔄 RustDHT Signaling Server</h1>
+      
+      <div class="status">
+        <p><strong>Server Status:</strong> <span id="server-status">Not started</span></p>
+        <p><strong>Server Address:</strong> <span id="server-address">-</span></p>
+      </div>
+
+      <div class="controls">
+        <button id="start-server">Start Server</button>
+        <button id="stop-server" disabled>Stop Server</button>
+      </div>
+
+      <h2>Connected Peers</h2>
+      <div id="connections">
+        <p>No peers connected</p>
+      </div>
+
+      <h2>Server Log</h2>
+      <div class="controls">
+        <button id="clear-log">Clear Log</button>
+      </div>
+      <div id="log">Waiting for server to start...</div>
+    </div>
+
+    <script>
+      let ws = null;
+      const peers = new Map();
+      
+      function log(message) {
+        const logElement = document.getElementById('log');
+        const timestamp = new Date().toISOString();
+        logElement.innerHTML += `\n[${timestamp}] ${message}`;
+        logElement.scrollTop = logElement.scrollHeight;
+      }
+
+      function updatePeerList() {
+        const connectionsDiv = document.getElementById('connections');
+        if (peers.size === 0) {
+          connectionsDiv.innerHTML = '<p>No peers connected</p>';
+          return;
+        }
+
+        connectionsDiv.innerHTML = '';
+        peers.forEach((lastSeen, peerId) => {
+          const peerDiv = document.createElement('div');
+          peerDiv.className = 'peer';
+          peerDiv.innerHTML = `
+            <span>Peer: ${peerId}</span>
+            <span>Last seen: ${new Date(lastSeen).toLocaleTimeString()}</span>
+          `;
+          connectionsDiv.appendChild(peerDiv);
+        });
+      }
+
+      document.getElementById('start-server').addEventListener('click', () => {
+        const serverPort = 8765; // Default WebSocket port
+        ws = new WebSocket(`ws://localhost:${serverPort}`);
+        
+        ws.onopen = () => {
+          document.getElementById('server-status').textContent = 'Running';
+          document.getElementById('server-address').textContent = `ws://localhost:${serverPort}`;
+          document.getElementById('start-server').disabled = true;
+          document.getElementById('stop-server').disabled = false;
+          log('Server started successfully');
+        };
+
+        ws.onclose = () => {
+          document.getElementById('server-status').textContent = 'Stopped';
+          document.getElementById('server-address').textContent = '-';
+          document.getElementById('start-server').disabled = false;
+          document.getElementById('stop-server').disabled = true;
+          peers.clear();
+          updatePeerList();
+          log('Server stopped');
+          ws = null;
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const message = JSON.parse(event.data);
+            
+            switch(message.type) {
+              case 'register':
+                peers.set(message.peerId, Date.now());
+                log(`New peer registered: ${message.peerId}`);
+                break;
+              case 'offer':
+                // Forward offer to target peer
+                log(`Forwarding offer from ${message.from} to ${message.to}`);
+                break;
+              case 'answer':
+                // Forward answer to target peer
+                log(`Forwarding answer from ${message.from} to ${message.to}`);
+                break;
+              case 'ice':
+                // Forward ICE candidate
+                log(`Forwarding ICE candidate from ${message.from} to ${message.to}`);
+                break;
+              case 'disconnect':
+                peers.delete(message.peerId);
+                log(`Peer disconnected: ${message.peerId}`);
+                break;
+            }
+            
+            updatePeerList();
+          } catch (error) {
+            log(`Error processing message: ${error.message}`);
+          }
+        };
+
+        ws.onerror = (error) => {
+          log(`WebSocket error: ${error.message}`);
+        };
+      });
+
+      document.getElementById('stop-server').addEventListener('click', () => {
+        if (ws) {
+          ws.close();
+        }
+      });
+
+      document.getElementById('clear-log').addEventListener('click', () => {
+        document.getElementById('log').innerHTML = '';
+      });
+    </script>
+  </body>
+</html>

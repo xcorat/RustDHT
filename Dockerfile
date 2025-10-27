@@ -31,8 +31,8 @@ COPY --from=builder /usr/src/app/target/release/server /usr/local/bin/rustdht-se
 RUN useradd -r -s /bin/false -u 1001 rustdht
 USER rustdht
 
-# Expose signaling server port
-EXPOSE 9090
+# Expose ports (HTTP health check and WebRTC signaling)
+EXPOSE 8080 9090
 
 # Set environment
 ENV RUST_LOG=info

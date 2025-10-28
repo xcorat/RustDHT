@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap | RustDHT</title>
+    <meta name="description" content="RustDHT development roadmap - current status, upcoming features, and long-term vision for decentralized data infrastructure.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustdht.github.io/roadmap/">
+    <meta property="og:title" content="Roadmap | RustDHT">
+    <meta property="og:description" content="RustDHT development roadmap - current status, upcoming features, and long-term vision for decentralized data infrastructure.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rustdht.github.io/roadmap/">
+    <meta property="twitter:title" content="Roadmap | RustDHT">
+    <meta property="twitter:description" content="RustDHT development roadmap - current status, upcoming features, and long-term vision for decentralized data infrastructure.">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <nav class="nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="nav-logo-text">RustDHT</span>
+        </a>
+        
+        <div class="nav-menu" id="nav-menu">
+            <a href="/why-decentralized/" class="nav-link">Why Decentralized</a>
+            <a href="/technical/" class="nav-link">Technical</a>
+            <a href="/use-cases/" class="nav-link">Use Cases</a>
+            <a href="/community/" class="nav-link">Community</a>
+            <a href="/roadmap/" class="nav-link">Roadmap</a>
+            <a href="https://github.com/rustdht/rustdht" class="nav-link nav-link--external" target="_blank" rel="noopener">
+                GitHub
+                <svg class="nav-external-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3.5 3H8.5V8M8.5 3L3.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+        </button>
+    </div>
+</nav>
+
+    
+    <main>
+        <div class="content">
+<h1>Development Roadmap</h1>
+<p>RustDHT follows an iterative development approach, building core functionality incrementally while maintaining a production-ready foundation. This roadmap reflects current priorities and community feedback.</p>
+<h2>Current Status (Sprint 2 - Completed)</h2>
+<h3>✅ Native P2P Server Operational</h3>
+<p><strong>Core Networking:</strong></p>
+<ul>
+<li>Multi-transport listener supporting TCP and WebRTC</li>
+<li>Combined transport stack using libp2p's or_transport</li>
+<li>Event-driven architecture with Tokio async runtime</li>
+<li>Automatic peer discovery and connection management</li>
+</ul>
+<p><strong>Messaging Protocols:</strong></p>
+<ul>
+<li>GossipSub implementation for real-time messaging</li>
+<li>Ping protocol for connection health monitoring</li>
+<li>Message authentication via cryptographic signatures</li>
+<li>Topic-based message routing and filtering</li>
+</ul>
+<p><strong>Production Infrastructure:</strong></p>
+<ul>
+<li>Docker containerization for easy deployment</li>
+<li>CI/CD pipeline with automated testing</li>
+<li>Cross-platform builds (Linux, macOS, Windows)</li>
+<li>Health monitoring and diagnostics endpoints</li>
+</ul>
+<p><strong>Performance Characteristics:</strong></p>
+<ul>
+<li>Sub-second message propagation across mesh network</li>
+<li>Efficient connection multiplexing and resource usage</li>
+<li>Graceful handling of peer connections and disconnections</li>
+<li>Logging and metrics for operational monitoring</li>
+</ul>
+<h2>In Progress (Sprint 2.5)</h2>
+<h3>🔄 Browser WASM Client</h3>
+<p><strong>Current Challenge:</strong>
+The browser client is blocked on libp2p dependency compatibility issues. The WebRTC transport (libp2p-webrtc-websys) is lagging behind the main libp2p development, causing version conflicts.</p>
+<p><strong>Resolution Strategy:</strong></p>
+<ul>
+<li><strong>WebSocket Fallback</strong>: Implementing libp2p-websocket-websys as primary browser transport</li>
+<li><strong>Signaling Server</strong>: Temporary centralized signaling for WebRTC connection establishment</li>
+<li><strong>Progressive Enhancement</strong>: WebSocket-first with WebRTC upgrade when available</li>
+</ul>
+<p><strong>Expected Completion:</strong> Q1 2024</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>Functional browser P2P node compiled to WebAssembly</li>
+<li>JavaScript integration layer for web applications</li>
+<li>Example web application demonstrating P2P connectivity</li>
+<li>Documentation for browser client development</li>
+</ul>
+<h3>🔄 Connection Diagnostics</h3>
+<p><strong>Health Monitoring:</strong></p>
+<ul>
+<li>Real-time connection status and peer discovery metrics</li>
+<li>Network topology visualization and analysis</li>
+<li>Performance benchmarking and latency measurement</li>
+<li>Error reporting and debugging tools</li>
+</ul>
+<p><strong>Operational Tools:</strong></p>
+<ul>
+<li>Admin interface for node management</li>
+<li>Peer connection debugging and troubleshooting</li>
+<li>Network partition detection and recovery</li>
+<li>Resource usage monitoring and optimization</li>
+</ul>
+<h2>Next Phase (Sprint 3 - Q1-Q2 2024)</h2>
+<h3>📋 Full DHT Implementation</h3>
+<p><strong>Distributed Storage:</strong></p>
+<ul>
+<li>Kademlia-based distributed hash table</li>
+<li>Consistent hashing for data sharding across nodes</li>
+<li>Configurable replication factor for fault tolerance</li>
+<li>Automatic data migration during node joins/leaves</li>
+</ul>
+<p><strong>Storage Backend:</strong></p>
+<ul>
+<li>Modular storage interface supporting multiple backends</li>
+<li>IndexedDB integration for browser persistence</li>
+<li>SQLite-WASM for enhanced browser database capabilities</li>
+<li>Native file system storage for server nodes</li>
+</ul>
+<p><strong>Data Consistency:</strong></p>
+<ul>
+<li>Eventual consistency model with conflict resolution</li>
+<li>Vector clocks for causality tracking</li>
+<li>Anti-entropy protocols for data synchronization</li>
+<li>Merkle trees for efficient data verification</li>
+</ul>
+<h3>📋 CRDT Conflict Resolution</h3>
+<p><strong>HAM-Inspired Algorithm:</strong></p>
+<ul>
+<li>Last-Write-Wins registers with sophisticated ordering</li>
+<li>Machine-relative timestamps to handle clock skew</li>
+<li>Deferred updates to prevent malicious timestamp manipulation</li>
+<li>Deterministic conflict resolution across all peers</li>
+</ul>
+<p><strong>CRDT Types:</strong></p>
+<ul>
+<li>LWW (Last-Write-Wins) registers for simple values</li>
+<li>OR-Sets (Observed-Remove Sets) for collections</li>
+<li>Extensible framework for custom CRDT implementations</li>
+<li>Integration with graph data model metadata</li>
+</ul>
+<p><strong>Offline-First Support:</strong></p>
+<ul>
+<li>Seamless offline operation with local storage</li>
+<li>Automatic synchronization when connectivity restored</li>
+<li>Conflict-free merging of concurrent offline edits</li>
+<li>User-friendly handling of complex conflict scenarios</li>
+</ul>
+<h3>📋 Graph Data Model</h3>
+<p><strong>Node and Soul System:</strong></p>
+<ul>
+<li>Globally unique identifiers (&quot;souls&quot;) for all nodes</li>
+<li>Flexible property system supporting primitives and links</li>
+<li>Schema-less structure with optional validation rules</li>
+<li>Metadata fields for security, ownership, and conflict resolution</li>
+</ul>
+<p><strong>Graph Operations:</strong></p>
+<ul>
+<li>Basic CRUD operations on nodes and properties</li>
+<li>Link traversal and relationship queries</li>
+<li>Bulk operations and batch updates</li>
+<li>Graph integrity validation and repair</li>
+</ul>
+<p><strong>Security Integration:</strong></p>
+<ul>
+<li>Cryptographic ownership of nodes via public keys</li>
+<li>Access control enforcement at the data layer</li>
+<li>Signed operations with tamper detection</li>
+<li>Privacy tiers (public, protected, private data)</li>
+</ul>
+<h2>Future Phases (Q3 2024 and Beyond)</h2>
+<h3>🔮 Advanced Query Language</h3>
+<p><strong>Graph Query Capabilities:</strong></p>
+<ul>
+<li>Path traversal queries (find all nodes connected via specific relationships)</li>
+<li>Pattern matching and graph algorithms (shortest path, centrality measures)</li>
+<li>Aggregation and analytics queries across distributed data</li>
+<li>Real-time query subscriptions with live updates</li>
+</ul>
+<p><strong>Query Optimization:</strong></p>
+<ul>
+<li>Secondary indexing for common query patterns</li>
+<li>Query planning and execution optimization</li>
+<li>Distributed query execution across multiple nodes</li>
+<li>Caching and materialized views for performance</li>
+</ul>
+<p><strong>Developer Experience:</strong></p>
+<ul>
+<li>GraphQL-inspired query syntax</li>
+<li>Type-safe query builders for Rust and JavaScript</li>
+<li>Query debugging and performance analysis tools</li>
+<li>Integration with popular development frameworks</li>
+</ul>
+<h3>🔮 Mobile Platform Support</h3>
+<p><strong>React Native Integration:</strong></p>
+<ul>
+<li>WebAssembly runtime for React Native applications</li>
+<li>Native module bindings for optimal performance</li>
+<li>Background synchronization and offline support</li>
+<li>Platform-specific optimizations (iOS/Android)</li>
+</ul>
+<p><strong>Flutter Support:</strong></p>
+<ul>
+<li>Dart FFI bindings to Rust core</li>
+<li>Cross-platform mobile application development</li>
+<li>Native performance with shared codebase</li>
+<li>Integration with mobile-specific features (contacts, camera, etc.)</li>
+</ul>
+<p><strong>Progressive Web App (PWA):</strong></p>
+<ul>
+<li>Service worker integration for background sync</li>
+<li>Offline-first PWA capabilities</li>
+<li>Push notifications for real-time updates</li>
+<li>App store distribution as native-like applications</li>
+</ul>
+<h3>🔮 IPFS Integration</h3>
+<p><strong>Blob Storage:</strong></p>
+<ul>
+<li>Large file storage via IPFS with RustDHT metadata</li>
+<li>Content-addressed storage for immutable data</li>
+<li>Automatic pinning and replication strategies</li>
+<li>Integration with Filecoin for long-term persistence</li>
+</ul>
+<p><strong>Hybrid Architecture:</strong></p>
+<ul>
+<li>RustDHT for mutable graph data and relationships</li>
+<li>IPFS for immutable content and large files</li>
+<li>Seamless integration between both systems</li>
+<li>Unified API for developers</li>
+</ul>
+<p><strong>Content Discovery:</strong></p>
+<ul>
+<li>IPFS DHT integration for content routing</li>
+<li>Cross-protocol peer discovery and communication</li>
+<li>Shared infrastructure and network effects</li>
+<li>Interoperability with existing IPFS applications</li>
+</ul>
+<h3>🔮 Advanced CRDT Types</h3>
+<p><strong>Collaborative Data Structures:</strong></p>
+<ul>
+<li>CRDT-based text editing (Yjs-compatible)</li>
+<li>Collaborative lists and ordered sequences</li>
+<li>CRDT maps and nested data structures</li>
+<li>Custom CRDT types for domain-specific applications</li>
+</ul>
+<p><strong>Real-Time Collaboration:</strong></p>
+<ul>
+<li>Operational transformation for text editing</li>
+<li>Presence awareness and cursor tracking</li>
+<li>Conflict-free collaborative drawing and design</li>
+<li>Multi-user document editing with rich formatting</li>
+</ul>
+<p><strong>Performance Optimization:</strong></p>
+<ul>
+<li>Delta-based synchronization for large documents</li>
+<li>Compression and efficient encoding of CRDT operations</li>
+<li>Garbage collection for tombstoned operations</li>
+<li>Memory-efficient CRDT implementations</li>
+</ul>
+<h2>Technical Debt and Infrastructure</h2>
+<h3>Code Quality and Testing</h3>
+<p><strong>Test Coverage:</strong></p>
+<ul>
+<li>Comprehensive unit tests for all core functionality</li>
+<li>Integration tests for P2P networking scenarios</li>
+<li>Property-based testing for CRDT correctness</li>
+<li>Performance regression testing and benchmarking</li>
+</ul>
+<p><strong>Documentation:</strong></p>
+<ul>
+<li>Complete API documentation with examples</li>
+<li>Architecture decision records (ADRs)</li>
+<li>Developer onboarding guides and tutorials</li>
+<li>User documentation for application developers</li>
+</ul>
+<p><strong>Code Quality:</strong></p>
+<ul>
+<li>Rust clippy linting and formatting standards</li>
+<li>Security audit and vulnerability assessment</li>
+<li>Performance profiling and optimization</li>
+<li>Dependency management and supply chain security</li>
+</ul>
+<h3>Operational Excellence</h3>
+<p><strong>Monitoring and Observability:</strong></p>
+<ul>
+<li>Structured logging with configurable levels</li>
+<li>Metrics collection and visualization (Prometheus/Grafana)</li>
+<li>Distributed tracing for debugging complex scenarios</li>
+<li>Alerting and incident response procedures</li>
+</ul>
+<p><strong>Deployment and Operations:</strong></p>
+<ul>
+<li>Kubernetes deployment manifests and Helm charts</li>
+<li>Automated deployment pipelines and rollback procedures</li>
+<li>Configuration management and environment-specific settings</li>
+<li>Backup and disaster recovery procedures</li>
+</ul>
+<p><strong>Security Hardening:</strong></p>
+<ul>
+<li>Regular security audits and penetration testing</li>
+<li>Dependency vulnerability scanning and updates</li>
+<li>Secure coding practices and threat modeling</li>
+<li>Incident response and security disclosure procedures</li>
+</ul>
+<h2>Community and Ecosystem</h2>
+<h3>Developer Experience</h3>
+<p><strong>SDK and Libraries:</strong></p>
+<ul>
+<li>JavaScript/TypeScript SDK for web applications</li>
+<li>Python bindings for data science and automation</li>
+<li>Go bindings for infrastructure and tooling</li>
+<li>Rust crate with stable API for native applications</li>
+</ul>
+<p><strong>Tooling and Utilities:</strong></p>
+<ul>
+<li>Command-line interface for node management</li>
+<li>Web-based admin interface and monitoring dashboard</li>
+<li>Development tools and debugging utilities</li>
+<li>Migration tools from other database systems</li>
+</ul>
+<p><strong>Educational Resources:</strong></p>
+<ul>
+<li>Comprehensive tutorials and getting-started guides</li>
+<li>Example applications and use case demonstrations</li>
+<li>Video tutorials and conference presentations</li>
+<li>Community workshops and hackathons</li>
+</ul>
+<h3>Ecosystem Growth</h3>
+<p><strong>Application Showcase:</strong></p>
+<ul>
+<li>Reference implementations of common use cases</li>
+<li>Community-built applications and tools</li>
+<li>Integration examples with popular frameworks</li>
+<li>Performance benchmarks and comparison studies</li>
+</ul>
+<p><strong>Research Collaboration:</strong></p>
+<ul>
+<li>Academic partnerships and research publications</li>
+<li>Open research initiatives and working groups</li>
+<li>Conference presentations and technical talks</li>
+<li>Collaboration with other decentralized projects</li>
+</ul>
+<p><strong>Standards and Interoperability:</strong></p>
+<ul>
+<li>Protocol specification and standardization efforts</li>
+<li>Interoperability with other P2P systems</li>
+<li>Bridge implementations to existing protocols</li>
+<li>Contribution to broader decentralized web standards</li>
+</ul>
+<h2>Honest Assessment and Challenges</h2>
+<h3>Current Limitations</h3>
+<p><strong>Production Readiness:</strong>
+RustDHT is currently a prototype and not recommended for production use. Key limitations include:</p>
+<ul>
+<li>Incomplete feature set (no DHT storage, limited CRDT support)</li>
+<li>Limited testing and real-world validation</li>
+<li>Browser client compatibility issues</li>
+<li>Performance characteristics not yet optimized</li>
+</ul>
+<p><strong>Infrastructure Dependencies:</strong>
+Despite P2P architecture, the system still requires some centralized components:</p>
+<ul>
+<li>Bootstrap nodes for initial network discovery</li>
+<li>STUN/TURN servers for NAT traversal in WebRTC</li>
+<li>Signaling servers for WebRTC connection establishment</li>
+<li>DNS infrastructure for human-readable addressing</li>
+</ul>
+<h3>Technical Challenges</h3>
+<p><strong>Browser Limitations:</strong></p>
+<ul>
+<li>Cannot reliably listen for incoming connections</li>
+<li>Storage quotas and eviction policies vary by browser</li>
+<li>Limited networking capabilities compared to native applications</li>
+<li>Performance constraints of WebAssembly runtime</li>
+</ul>
+<p><strong>Network Dynamics:</strong></p>
+<ul>
+<li>Handling network partitions and split-brain scenarios</li>
+<li>Peer discovery in restrictive network environments</li>
+<li>Balancing decentralization with performance requirements</li>
+<li>Economic sustainability without built-in incentive mechanisms</li>
+</ul>
+<h3>Realistic Expectations</h3>
+<p><strong>Scaling Strategy:</strong>
+Rather than claiming to solve all problems immediately, RustDHT follows a pragmatic approach:</p>
+<ul>
+<li>Start with small communities and specific use cases</li>
+<li>Focus on scenarios where P2P provides clear benefits</li>
+<li>Learn from real-world deployment and user feedback</li>
+<li>Gradually expand capabilities based on proven demand</li>
+</ul>
+<p><strong>Ecosystem Collaboration:</strong>
+RustDHT is designed to complement, not compete with, existing decentralized systems:</p>
+<ul>
+<li>Integration with IPFS for content storage</li>
+<li>Interoperability with Matrix for communication</li>
+<li>Compatibility with ActivityPub for social applications</li>
+<li>Contribution to broader decentralized web ecosystem</li>
+</ul>
+<h2>How to Influence the Roadmap</h2>
+<h3>Community Input</h3>
+<p><strong>Feature Requests:</strong></p>
+<ul>
+<li>Submit issues on GitHub with detailed use case descriptions</li>
+<li>Participate in community discussions and planning sessions</li>
+<li>Vote on feature priorities through community polls</li>
+<li>Contribute to architecture decision records (ADRs)</li>
+</ul>
+<p><strong>Development Contributions:</strong></p>
+<ul>
+<li>Pick up tasks from the current sprint backlog</li>
+<li>Propose and implement new features</li>
+<li>Contribute to documentation and testing</li>
+<li>Help with code review and quality assurance</li>
+</ul>
+<p><strong>Research and Analysis:</strong></p>
+<ul>
+<li>Conduct performance benchmarks and comparisons</li>
+<li>Research and propose new CRDT algorithms</li>
+<li>Analyze security models and threat vectors</li>
+<li>Study user experience and usability patterns</li>
+</ul>
+<h3>Funding and Resources</h3>
+<p><strong>Development Funding:</strong></p>
+<ul>
+<li>Grant applications to decentralized technology foundations</li>
+<li>Crowdfunding campaigns for specific features</li>
+<li>Corporate sponsorship for enterprise features</li>
+<li>Academic research partnerships and funding</li>
+</ul>
+<p><strong>Infrastructure Support:</strong></p>
+<ul>
+<li>Hosting for bootstrap nodes and development infrastructure</li>
+<li>CI/CD resources and testing environments</li>
+<li>Community infrastructure (forums, chat, documentation)</li>
+<li>Conference and event sponsorship</li>
+</ul>
+<p><strong>Community Resources:</strong></p>
+<ul>
+<li>Technical writing and documentation contributions</li>
+<li>Translation to multiple languages</li>
+<li>Educational content creation and workshops</li>
+<li>Advocacy and outreach in relevant communities</li>
+</ul>
+<hr>
+<p>This roadmap is a living document that evolves based on community feedback, technical discoveries, and real-world usage patterns. The goal is not just to build software, but to create sustainable infrastructure for user-owned data that serves communities for decades to come.</p>
+<h2>Stay Updated</h2>
+<ul>
+<li><strong>GitHub Milestones</strong>: Track progress on specific features and releases</li>
+<li><strong>Monthly Community Calls</strong>: Join discussions about roadmap priorities</li>
+<li><strong>Quarterly Planning</strong>: Participate in sprint planning and priority setting</li>
+<li><strong>Annual Roadmap Review</strong>: Help set long-term direction and goals</li>
+</ul>
+<hr>
+<h2>Learn More</h2>
+<ul>
+<li><a href="/technical/">Technical Overview</a> - Understand the current architecture and implementation</li>
+<li><a href="/community/">Community</a> - Learn how to contribute to development and planning</li>
+<li><a href="/use-cases/">Use Cases</a> - Explore applications that drive roadmap priorities</li>
+<li><a href="/why-decentralized/">Why Decentralized</a> - Understand the long-term vision and goals</li>
+</ul>
+</div>
+
+    </main>
+    
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">RustDHT</h3>
+                <p class="footer-description">A decentralized P2P graph database built with Rust and WebAssembly. Help build user-owned data infrastructure.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Project</h4>
+                <ul class="footer-links">
+                    <li><a href="/why-decentralized/">Why Decentralized</a></li>
+                    <li><a href="/technical/">Technical Overview</a></li>
+                    <li><a href="/use-cases/">Use Cases</a></li>
+                    <li><a href="/roadmap/">Roadmap</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Community</h4>
+                <ul class="footer-links">
+                    <li><a href="/community/">Get Involved</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/issues" target="_blank" rel="noopener">Issues</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/discussions" target="_blank" rel="noopener">Discussions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/wiki/main" target="_blank" rel="noopener">Documentation</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/docs" target="_blank" rel="noopener">Architecture</a></li>
+                    <li><a href="https://docs.libp2p.io/" target="_blank" rel="noopener">libp2p Docs</a></li>
+                    <li><a href="https://rustwasm.github.io/" target="_blank" rel="noopener">Rust + WASM</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 RustDHT Community. Open source project.
+            </p>
+            <p class="footer-note">
+                Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener">11ty</a> • 
+                Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script src="/assets/js/cards.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<h1>Website Deployment Guide</h1>
+<p>This guide covers deploying the RustDHT website to GitHub Pages.</p>
+<h2>Quick Deployment</h2>
+<ol>
+<li>
+<p><strong>Build the site:</strong></p>
+<pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">cd</span> pages/
+<span class="token function">npm</span> <span class="token function">install</span>
+<span class="token function">npm</span> run build</code></pre>
+</li>
+<li>
+<p><strong>Commit and push:</strong></p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"Add website build"</span>
+<span class="token function">git</span> push origin main</code></pre>
+</li>
+<li>
+<p><strong>Configure GitHub Pages:</strong></p>
+<ul>
+<li>Go to repository Settings &gt; Pages</li>
+<li>Source: Deploy from a branch</li>
+<li>Branch: main</li>
+<li>Folder: /docs</li>
+<li>Save</li>
+</ul>
+</li>
+</ol>
+<h2>File Structure</h2>
+<p>The build process creates:</p>
+<pre><code>docs/                    # GitHub Pages serves from here
+├── index.html          # Homepage
+├── why-decentralized/  # Subpages
+├── technical/
+├── use-cases/
+├── community/
+├── roadmap/
+├── assets/             # CSS and JS
+└── .nojekyll          # Prevents Jekyll processing
+</code></pre>
+<h2>Development Workflow</h2>
+<h3>Local Development</h3>
+<pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">cd</span> pages/
+<span class="token function">npm</span> run serve           <span class="token comment"># Start dev server at localhost:8080</span></code></pre>
+<h3>Production Build</h3>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> run build          <span class="token comment"># Generate static site in docs/</span></code></pre>
+<h3>Content Updates</h3>
+<ol>
+<li>Edit markdown files in <code>pages/</code></li>
+<li>Update data files in <code>pages/_data/</code></li>
+<li>Rebuild with <code>npm run build</code></li>
+<li>Commit and push changes</li>
+</ol>
+<h2>GitHub Pages Configuration</h2>
+<h3>Repository Settings</h3>
+<ul>
+<li><strong>Source</strong>: Deploy from a branch</li>
+<li><strong>Branch</strong>: main (or your default branch)</li>
+<li><strong>Folder</strong>: /docs</li>
+<li><strong>Custom domain</strong>: Optional (add CNAME file)</li>
+</ul>
+<h3>Build Process</h3>
+<p>The site is built locally and committed to the repository. GitHub Pages serves the static files from the <code>docs/</code> directory without additional processing.</p>
+<h3>.nojekyll File</h3>
+<p>The <code>.nojekyll</code> file in the <code>docs/</code> directory prevents GitHub from processing the site with Jekyll, allowing 11ty's output to be served directly.</p>
+<h2>Custom Domain (Optional)</h2>
+<ol>
+<li>
+<p><strong>Add CNAME file:</strong></p>
+<pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"yourdomain.com"</span> <span class="token operator">></span> pages/CNAME
+<span class="token function">npm</span> run build</code></pre>
+</li>
+<li>
+<p><strong>Configure DNS:</strong></p>
+<ul>
+<li>Add CNAME record pointing to <code>username.github.io</code></li>
+<li>Or A records pointing to GitHub Pages IPs</li>
+</ul>
+</li>
+<li>
+<p><strong>Enable HTTPS:</strong></p>
+<ul>
+<li>GitHub Pages automatically provides SSL certificates</li>
+<li>May take a few minutes to provision</li>
+</ul>
+</li>
+</ol>
+<h2>Automated Deployment (Optional)</h2>
+<h3>GitHub Actions Workflow</h3>
+<p>Create <code>.github/workflows/deploy.yml</code>:</p>
+<pre class="language-yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Build and Deploy Website
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> main <span class="token punctuation">]</span>
+    <span class="token key atrule">paths</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">'pages/**'</span> <span class="token punctuation">]</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">build-and-deploy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
+      <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v3
+      
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Setup Node.js
+      <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v3
+      <span class="token key atrule">with</span><span class="token punctuation">:</span>
+        <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token string">'18'</span>
+        <span class="token key atrule">cache</span><span class="token punctuation">:</span> <span class="token string">'npm'</span>
+        <span class="token key atrule">cache-dependency-path</span><span class="token punctuation">:</span> pages/package<span class="token punctuation">-</span>lock.json
+        
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install dependencies
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+        cd pages
+        npm ci</span>
+        
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Build website
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+        cd pages
+        npm run build</span>
+        
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy to GitHub Pages
+      <span class="token key atrule">uses</span><span class="token punctuation">:</span> peaceiris/actions<span class="token punctuation">-</span>gh<span class="token punctuation">-</span>pages@v3
+      <span class="token key atrule">with</span><span class="token punctuation">:</span>
+        <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $
+        <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./pages/docs
+        <span class="token key atrule">cname</span><span class="token punctuation">:</span> yourdomain.com  <span class="token comment"># Optional</span></code></pre>
+<p>This workflow:</p>
+<ul>
+<li>Triggers on pushes to main branch that modify <code>pages/</code> directory</li>
+<li>Installs dependencies and builds the site</li>
+<li>Deploys to GitHub Pages automatically</li>
+</ul>
+<h2>Performance Optimization</h2>
+<h3>Build Optimization</h3>
+<ul>
+<li>Minified CSS and JavaScript</li>
+<li>Optimized images and assets</li>
+<li>Efficient HTML structure</li>
+<li>Fast static site generation</li>
+</ul>
+<h3>CDN Benefits</h3>
+<p>GitHub Pages provides global CDN distribution:</p>
+<ul>
+<li>Fast loading worldwide</li>
+<li>Automatic caching</li>
+<li>HTTPS by default</li>
+<li>High availability</li>
+</ul>
+<h3>Monitoring</h3>
+<ul>
+<li>Use GitHub Pages insights for traffic analytics</li>
+<li>Monitor Core Web Vitals with tools like PageSpeed Insights</li>
+<li>Set up uptime monitoring if using custom domain</li>
+</ul>
+<h2>Troubleshooting</h2>
+<h3>Common Issues</h3>
+<p><strong>Build Fails:</strong></p>
+<ul>
+<li>Check Node.js version (requires v16+)</li>
+<li>Verify all dependencies are installed</li>
+<li>Check for syntax errors in templates</li>
+</ul>
+<p><strong>Pages Not Updating:</strong></p>
+<ul>
+<li>Ensure changes are committed to correct branch</li>
+<li>Check GitHub Pages build status in repository settings</li>
+<li>Clear browser cache</li>
+<li>Verify .nojekyll file is present</li>
+</ul>
+<p><strong>Styling Issues:</strong></p>
+<ul>
+<li>Check CSS file paths in generated HTML</li>
+<li>Verify assets are copied to docs/ directory</li>
+<li>Test locally with <code>npm run serve</code></li>
+</ul>
+<p><strong>404 Errors:</strong></p>
+<ul>
+<li>Check internal link paths</li>
+<li>Ensure all referenced files exist</li>
+<li>Verify GitHub Pages is serving from correct directory</li>
+</ul>
+<h3>Debug Steps</h3>
+<ol>
+<li>
+<p><strong>Local Testing:</strong></p>
+<pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">cd</span> pages/
+<span class="token function">npm</span> run build
+npx http-server docs/  <span class="token comment"># Test built site locally</span></code></pre>
+</li>
+<li>
+<p><strong>Check Generated Files:</strong></p>
+<ul>
+<li>Verify HTML files are generated correctly</li>
+<li>Check asset paths and file structure</li>
+<li>Validate HTML and CSS</li>
+</ul>
+</li>
+<li>
+<p><strong>GitHub Pages Status:</strong></p>
+<ul>
+<li>Check repository Settings &gt; Pages for build status</li>
+<li>Review any error messages</li>
+<li>Verify branch and folder settings</li>
+</ul>
+</li>
+</ol>
+<h2>Security Considerations</h2>
+<h3>Content Security</h3>
+<ul>
+<li>All content is static (no server-side processing)</li>
+<li>No sensitive data in repository</li>
+<li>External links use <code>rel=&quot;noopener&quot;</code></li>
+</ul>
+<h3>Dependencies</h3>
+<ul>
+<li>Regular dependency updates via npm audit</li>
+<li>Use npm ci for reproducible builds</li>
+<li>Pin dependency versions in package-lock.json</li>
+</ul>
+<h3>HTTPS</h3>
+<ul>
+<li>GitHub Pages provides automatic HTTPS</li>
+<li>Custom domains get free SSL certificates</li>
+<li>All links should use HTTPS where possible</li>
+</ul>
+<h2>Maintenance</h2>
+<h3>Regular Updates</h3>
+<ul>
+<li>Update npm dependencies monthly</li>
+<li>Review and update content quarterly</li>
+<li>Monitor for broken external links</li>
+<li>Update roadmap and project status</li>
+</ul>
+<h3>Content Management</h3>
+<ul>
+<li>Keep documentation in sync with code</li>
+<li>Update project data and milestones</li>
+<li>Refresh external project information</li>
+<li>Maintain consistent style and tone</li>
+</ul>
+<h3>Performance Monitoring</h3>
+<ul>
+<li>Regular PageSpeed Insights checks</li>
+<li>Monitor loading times and Core Web Vitals</li>
+<li>Optimize images and assets as needed</li>
+<li>Review and minimize JavaScript usage</li>
+</ul>
+<h2>Backup and Recovery</h2>
+<h3>Repository Backup</h3>
+<ul>
+<li>GitHub provides built-in repository backup</li>
+<li>Consider additional backup to other Git providers</li>
+<li>Export important content to external formats</li>
+</ul>
+<h3>Content Recovery</h3>
+<ul>
+<li>All source files are in version control</li>
+<li>Build process is reproducible</li>
+<li>Documentation includes all necessary steps</li>
+<li>No external dependencies for core functionality</li>
+</ul>
+<hr>
+<p>The website is now ready for deployment to GitHub Pages. The build process generates a complete static site that can be served from any web server or CDN.</p>

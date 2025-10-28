@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Decentralized? | RustDHT</title>
+    <meta name="description" content="Explore the possibilities enabled by decentralized technology - from community ownership to censorship resistance.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustdht.github.io/why-decentralized/">
+    <meta property="og:title" content="Why Decentralized? | RustDHT">
+    <meta property="og:description" content="Explore the possibilities enabled by decentralized technology - from community ownership to censorship resistance.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rustdht.github.io/why-decentralized/">
+    <meta property="twitter:title" content="Why Decentralized? | RustDHT">
+    <meta property="twitter:description" content="Explore the possibilities enabled by decentralized technology - from community ownership to censorship resistance.">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <nav class="nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="nav-logo-text">RustDHT</span>
+        </a>
+        
+        <div class="nav-menu" id="nav-menu">
+            <a href="/why-decentralized/" class="nav-link">Why Decentralized</a>
+            <a href="/technical/" class="nav-link">Technical</a>
+            <a href="/use-cases/" class="nav-link">Use Cases</a>
+            <a href="/community/" class="nav-link">Community</a>
+            <a href="/roadmap/" class="nav-link">Roadmap</a>
+            <a href="https://github.com/rustdht/rustdht" class="nav-link nav-link--external" target="_blank" rel="noopener">
+                GitHub
+                <svg class="nav-external-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3.5 3H8.5V8M8.5 3L3.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+        </button>
+    </div>
+</nav>
+
+    
+    <main>
+        <div class="content">
+<h1>Why Decentralized?</h1>
+<p>Decentralized systems like RustDHT represent a fundamental reimagining of digital infrastructure—one that prioritizes community ownership, individual autonomy, and collaborative innovation over corporate control.</p>
+<h2>Community Ownership of Digital Infrastructure</h2>
+<p>Traditional platforms concentrate power in corporate hands. Decentralized systems enable communities to collectively own and govern their digital infrastructure, shifting power from corporate entities to users themselves.</p>
+<h3>The &quot;Community as Infrastructure&quot; Model</h3>
+<p>As demonstrated by projects like IPFS and Holochain, decentralized networks grow stronger with each new participant. With IPFS, over 280,000 unique nodes contribute to a network where &quot;each new node that joins IPFS makes the network stronger for everyone&quot;<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.</p>
+<p>Holochain takes this further by treating the community itself as the infrastructure. Their distributed app framework with P2P networking means that compute and storage capacity scale naturally with popularity, as the community provides the infrastructure rather than relying on centralized servers<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>
+<h3>RustDHT's Contribution</h3>
+<p>RustDHT embodies this principle through its hybrid architecture:</p>
+<ul>
+<li><strong>Browser-native P2P nodes</strong>: Any user with a web browser can participate as a full network peer</li>
+<li><strong>Distributed Hash Table (DHT)</strong>: Data is sharded and replicated across community-owned nodes</li>
+<li><strong>No mandatory intermediaries</strong>: Direct peer-to-peer communication eliminates gatekeepers</li>
+</ul>
+<h2>Individual Control Over Content</h2>
+<p>Decentralized systems restore individual agency over digital content—from creation to consumption.</p>
+<h3>Moving Away from Corporate Content Filtering</h3>
+<p>Traditional platforms exercise centralized control over:</p>
+<ul>
+<li>What content is visible</li>
+<li>Who can participate</li>
+<li>How algorithms prioritize information</li>
+<li>What data is collected and monetized</li>
+</ul>
+<p>Decentralized alternatives enable:</p>
+<ul>
+<li><strong>Self-sovereign content curation</strong>: Users choose their own filtering criteria</li>
+<li><strong>Transparent algorithms</strong>: Open-source protocols replace opaque corporate algorithms</li>
+<li><strong>Censorship resistance</strong>: Distributed storage makes content removal technically challenging</li>
+<li><strong>User-controlled data</strong>: Information resides on user devices, not corporate servers</li>
+</ul>
+<h3>Real-World Examples</h3>
+<p>IPFS has demonstrated this through real-world applications:</p>
+<ul>
+<li>When Turkey blocked Wikipedia, a copy was posted to IPFS, restoring visibility to millions<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></li>
+<li>Digital artists like Nancy Baker Cahill use IPFS to guarantee permanent homes for their work: &quot;Resilience is important to me and having the work backed up to Filecoin means they'll be around for a long time&quot;<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></li>
+</ul>
+<h2>Peer-to-Peer Collaboration Without Intermediaries</h2>
+<p>Decentralized technology makes direct collaboration possible without requiring trusted third parties or centralized coordination.</p>
+<h3>Technical Foundations</h3>
+<p>Projects demonstrate various approaches:</p>
+<ul>
+<li><strong>Anytype</strong> uses IPFS content addressing to enable users to &quot;build personal knowledge webs that can be shared with others&quot;<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup></li>
+<li><strong>WeatherXM</strong> configured thousands of smart weather stations with IPFS functionality to &quot;collaboratively share weather patterns from around the world&quot;<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup></li>
+<li><strong>Yjs and collaborative CRDTs</strong> enable real-time collaborative editing without central servers</li>
+</ul>
+<h3>RustDHT's Technical Enablers</h3>
+<ul>
+<li><strong>WebRTC Transport</strong>: Browser-to-browser and browser-to-server connections</li>
+<li><strong>GossipSub Protocol</strong>: Decentralized message broadcasting for real-time collaboration</li>
+<li><strong>CRDT-based Conflict Resolution</strong>: Automatic merging of concurrent edits (inspired by GunDB's HAM algorithm)</li>
+<li><strong>Offline-First Architecture</strong>: Work continues seamlessly when disconnected, syncing automatically upon reconnection</li>
+</ul>
+<h2>Creating Digital Commons That Resist Corporate Enclosure</h2>
+<p>Decentralized systems enable the creation of shared resources that cannot be easily privatized or controlled by single entities.</p>
+<h3>The Problem of Digital Enclosure</h3>
+<p>Contemporary digital infrastructure suffers from:</p>
+<ul>
+<li><strong>Platform lock-in</strong>: Data and applications trapped within corporate ecosystems</li>
+<li><strong>Rent-seeking behavior</strong>: Platforms extracting value from user-generated content</li>
+<li><strong>Arbitrary terms changes</strong>: Unilateral modification of access and pricing</li>
+<li><strong>Data extraction</strong>: Monetization of user behavior without compensation</li>
+</ul>
+<h3>Decentralized Alternatives</h3>
+<p>IPFS articulates this vision: &quot;IPFS and content addressing give us the opportunity to work towards having every human be able to put data online effectively for free, and effectively forever&quot;<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>.</p>
+<p>RustDHT contributes by:</p>
+<ul>
+<li><strong>Content-addressed storage</strong>: Data identified by cryptographic hash, not corporate location</li>
+<li><strong>Replicated persistence</strong>: Multiple copies across community nodes prevent single-point control</li>
+<li><strong>Open protocols</strong>: Anyone can implement compatible clients and servers</li>
+<li><strong>Cryptographic ownership</strong>: User public keys determine data control, not platform accounts</li>
+</ul>
+<h2>Building Resilient Systems</h2>
+<p>Unlike centralized systems where scale creates bottlenecks, decentralized networks benefit from network effects that enhance resilience.</p>
+<h3>The Inverse Scaling Property</h3>
+<p>Traditional centralized systems face diminishing returns:</p>
+<ul>
+<li>More users → increased server load → degraded performance</li>
+<li>Single point of failure → catastrophic outages affect all users</li>
+<li>DDoS vulnerability → entire system can be taken down</li>
+</ul>
+<p>Decentralized systems exhibit inverse properties:</p>
+<ul>
+<li>More peers → increased storage capacity and bandwidth</li>
+<li>Distributed architecture → no single point of failure</li>
+<li>Attack resistance → shutting down individual nodes doesn't affect the network</li>
+</ul>
+<h3>Technical Mechanisms</h3>
+<p>As noted in RustDHT's architecture documentation:</p>
+<ul>
+<li><strong>Sharded DHT storage</strong>: Load distributed across all participating nodes</li>
+<li><strong>Multiple replicas</strong>: Data availability increases with network size</li>
+<li><strong>Dynamic peer discovery</strong>: Network self-heals as nodes join and leave</li>
+<li><strong>Gossip protocols</strong>: Information propagates organically through the mesh</li>
+</ul>
+<p>Example from practice: &quot;By using IPFS private swarms, we were able to deploy a fleet of devices communicating mission critical data in a factory without any central infrastructure&quot;<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup>.</p>
+<h2>Fostering Innovation Free from Platform Lock-in</h2>
+<p>Decentralized protocols enable permissionless innovation—anyone can build without seeking approval or paying gatekeepers.</p>
+<h3>The Innovation Barrier Problem</h3>
+<p>Centralized platforms create barriers:</p>
+<ul>
+<li><strong>API restrictions</strong>: Platforms control what developers can build</li>
+<li><strong>Revenue extraction</strong>: Platform fees tax all innovation</li>
+<li><strong>Arbitrary enforcement</strong>: Apps can be removed without recourse</li>
+<li><strong>Data access limitations</strong>: Developers can't access their users' own data</li>
+</ul>
+<h3>Permissionless Innovation Through Open Protocols</h3>
+<p>Cloudflare's perspective: &quot;By removing lock-in to any single data storage provider, IPFS really allows our customers to choose a storage provider they are comfortable with&quot;<sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup>.</p>
+<p>For developers, this means:</p>
+<ul>
+<li><strong>Protocol access without permission</strong>: No API keys or approval processes</li>
+<li><strong>Composability</strong>: Build on top of any existing decentralized app</li>
+<li><strong>Data portability</strong>: Users control their data, enabling seamless app switching</li>
+<li><strong>Zero platform fees</strong>: No rent-seeking intermediaries</li>
+</ul>
+<h2>The Path Forward</h2>
+<p>RustDHT sits at the intersection of these possibilities, providing:</p>
+<ol>
+<li><strong>Technical Foundation</strong>: Production-ready Rust implementation with browser compatibility</li>
+<li><strong>Practical Architecture</strong>: Hybrid native/WASM design balances ideals with pragmatism</li>
+<li><strong>Community Ownership</strong>: Open development model and permissionless participation</li>
+<li><strong>Proven Patterns</strong>: Drawing from GunDB, IPFS, and Holochain's successful approaches</li>
+</ol>
+<p>The project demonstrates that these possibilities are not merely aspirational—they are technically achievable today.</p>
+<hr>
+<h2>Learn More</h2>
+<ul>
+<li><a href="/technical/">Technical Overview</a> - How RustDHT implements these principles</li>
+<li><a href="/use-cases/">Use Cases</a> - Real-world applications enabled by decentralization</li>
+<li><a href="/community/">Community</a> - How to get involved and contribute</li>
+</ul>
+<hr>
+</div>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://ipfs.tech/">IPFS: Connect Through Community</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://www.holochain.org/">Holochain: Distributed app framework with P2P networking</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="https://ipfs.tech/">IPFS Case Studies</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://ipfs.tech/">IPFS: Digital Art Storage</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p><a href="https://ipfs.tech/">Anytype on IPFS</a> <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p><a href="https://ipfs.tech/">WeatherXM Collaborative Sensing</a> <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p><a href="https://ipfs.tech/">IPFS Vision Statement</a> <a href="#fnref7" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn8" class="footnote-item"><p><a href="https://ipfs.tech/">Actyx Factory Floor Case Study</a> <a href="#fnref8" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn9" class="footnote-item"><p><a href="https://ipfs.tech/">Cloudflare on IPFS</a> <a href="#fnref9" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </main>
+    
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">RustDHT</h3>
+                <p class="footer-description">A decentralized P2P graph database built with Rust and WebAssembly. Help build user-owned data infrastructure.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Project</h4>
+                <ul class="footer-links">
+                    <li><a href="/why-decentralized/">Why Decentralized</a></li>
+                    <li><a href="/technical/">Technical Overview</a></li>
+                    <li><a href="/use-cases/">Use Cases</a></li>
+                    <li><a href="/roadmap/">Roadmap</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Community</h4>
+                <ul class="footer-links">
+                    <li><a href="/community/">Get Involved</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/issues" target="_blank" rel="noopener">Issues</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/discussions" target="_blank" rel="noopener">Discussions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/wiki/main" target="_blank" rel="noopener">Documentation</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/docs" target="_blank" rel="noopener">Architecture</a></li>
+                    <li><a href="https://docs.libp2p.io/" target="_blank" rel="noopener">libp2p Docs</a></li>
+                    <li><a href="https://rustwasm.github.io/" target="_blank" rel="noopener">Rust + WASM</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 RustDHT Community. Open source project.
+            </p>
+            <p class="footer-note">
+                Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener">11ty</a> • 
+                Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script src="/assets/js/cards.js"></script>
+</body>
+</html>

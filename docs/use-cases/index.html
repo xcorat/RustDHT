@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | RustDHT</title>
+    <meta name="description" content="Discover real-world applications enabled by RustDHT - from offline productivity tools to censorship-resistant content.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustdht.github.io/use-cases/">
+    <meta property="og:title" content="Use Cases | RustDHT">
+    <meta property="og:description" content="Discover real-world applications enabled by RustDHT - from offline productivity tools to censorship-resistant content.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rustdht.github.io/use-cases/">
+    <meta property="twitter:title" content="Use Cases | RustDHT">
+    <meta property="twitter:description" content="Discover real-world applications enabled by RustDHT - from offline productivity tools to censorship-resistant content.">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <nav class="nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="nav-logo-text">RustDHT</span>
+        </a>
+        
+        <div class="nav-menu" id="nav-menu">
+            <a href="/why-decentralized/" class="nav-link">Why Decentralized</a>
+            <a href="/technical/" class="nav-link">Technical</a>
+            <a href="/use-cases/" class="nav-link">Use Cases</a>
+            <a href="/community/" class="nav-link">Community</a>
+            <a href="/roadmap/" class="nav-link">Roadmap</a>
+            <a href="https://github.com/rustdht/rustdht" class="nav-link nav-link--external" target="_blank" rel="noopener">
+                GitHub
+                <svg class="nav-external-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3.5 3H8.5V8M8.5 3L3.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+        </button>
+    </div>
+</nav>
+
+    
+    <main>
+        <div class="content">
+<h1>Use Cases: What RustDHT Enables</h1>
+<p>RustDHT's technical capabilities translate into practical applications that challenge centralized infrastructure and restore user agency over digital tools.</p>
+<h2>Offline-Native Productivity Tools</h2>
+<h3>The Local-First Software Paradigm</h3>
+<p>Local-first software prioritizes working on local devices, with network connectivity as enhancement rather than requirement.</p>
+<p><strong>Core Principles:</strong></p>
+<ul>
+<li>Data resides primarily on user's device</li>
+<li>Applications work fully offline</li>
+<li>Network used for sync and collaboration</li>
+<li>No degraded experience without connectivity</li>
+</ul>
+<h3>Example: Anytype on IPFS</h3>
+<p>Anytype demonstrates this approach: &quot;Anytype uses the content addressing on IPFS to empower users to build personal knowledge webs that can be shared with others&quot;<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Personal knowledge management</li>
+<li>Works offline by default</li>
+<li>P2P sync when connected</li>
+<li>User owns all data</li>
+</ul>
+<h3>How RustDHT Enables This</h3>
+<p><strong>Offline-First Architecture:</strong></p>
+<ul>
+<li>Local storage (IndexedDB) for all user data</li>
+<li>CRDT-based merging handles offline edits</li>
+<li>GossipSub propagates updates when online</li>
+<li>No server required for basic operation</li>
+</ul>
+<p><strong>Graph Data Model:</strong>
+Perfect for knowledge management:</p>
+<ul>
+<li>Notes as nodes with flexible properties</li>
+<li>Connections as links between related concepts</li>
+<li>Tags, categories, backlinks naturally represented</li>
+<li>Schema-less structure adapts to user needs</li>
+</ul>
+<p><strong>Conflict Resolution:</strong>
+HAM-inspired CRDT ensures:</p>
+<ul>
+<li>Concurrent edits merge automatically</li>
+<li>No &quot;sync conflicts&quot; to resolve manually</li>
+<li>Predictable outcomes across devices</li>
+<li>Work continues seamlessly offline</li>
+</ul>
+<h3>Potential Applications</h3>
+<p><strong>Personal Knowledge Bases:</strong></p>
+<ul>
+<li>Note-taking and personal wikis</li>
+<li>Research management and citation tracking</li>
+<li>Project documentation and planning</li>
+<li>Zettelkasten-style knowledge systems</li>
+</ul>
+<p><strong>Collaborative Documents:</strong></p>
+<ul>
+<li>Shared notes and outlines</li>
+<li>Team documentation and wikis</li>
+<li>Collaborative research projects</li>
+<li>Study groups and learning communities</li>
+</ul>
+<p><strong>Task Management:</strong></p>
+<ul>
+<li>To-do lists and project planning</li>
+<li>Team coordination and workflows</li>
+<li>Offline task tracking</li>
+<li>Resource and time management</li>
+</ul>
+<p><strong>Key Advantage:</strong> Unlike cloud-based tools (Notion, Evernote), users truly own their data. Unlike self-hosted solutions (Obsidian with sync), no server setup required.</p>
+<h2>Censorship-Resistant Content and Archives</h2>
+<h3>The Content Permanence Challenge</h3>
+<p>Centralized platforms can remove content arbitrarily through:</p>
+<ul>
+<li>Platform policy changes</li>
+<li>Government pressure</li>
+<li>Copyright claims (legitimate or spurious)</li>
+<li>Account termination or suspension</li>
+</ul>
+<h3>Example: Wikipedia on IPFS</h3>
+<p>When Turkey blocked Wikipedia, IPFS provided a solution: &quot;When the government of Turkey blocked access to Wikipedia, a copy of the site was posted to IPFS, restoring visibility to millions of people&quot;<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>
+<p><strong>Why This Worked:</strong></p>
+<ul>
+<li>Content addressed by hash, not location</li>
+<li>Distributed across many nodes</li>
+<li>No single point to block or control</li>
+<li>Anyone can host and share content</li>
+</ul>
+<h3>How RustDHT Extends This</h3>
+<p><strong>Dynamic Content Support:</strong>
+Where IPFS excels at static archives, RustDHT enables dynamic, updating content:</p>
+<p><strong>Graph Structure for Living Content:</strong></p>
+<ul>
+<li>Articles as nodes with properties and metadata</li>
+<li>Edit history as linked chain of versions</li>
+<li>Comments and discussions as connected nodes</li>
+<li>User profiles and reputation as nodes</li>
+</ul>
+<p><strong>Real-Time Updates:</strong></p>
+<ul>
+<li>New edits propagate via GossipSub messaging</li>
+<li>CRDT merging for collaborative editing</li>
+<li>No central server to shut down or control</li>
+<li>Community-moderated through validation rules</li>
+</ul>
+<p><strong>Cryptographic Verification:</strong>
+Every piece of data is cryptographically signed by its author, linking content back to its origin and making tampering detectable<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>.</p>
+<h3>Potential Applications</h3>
+<p><strong>Alternative Social Media:</strong></p>
+<ul>
+<li>User-owned profiles and content</li>
+<li>Distributed timeline and feed algorithms</li>
+<li>Community moderation without central authority</li>
+<li>Resistant to platform deactivation</li>
+</ul>
+<p><strong>Archives and Digital Libraries:</strong></p>
+<ul>
+<li>Preservation of important documents</li>
+<li>Academic paper distribution</li>
+<li>Cultural heritage preservation</li>
+<li>Whistleblower platforms and leak sites</li>
+</ul>
+<p><strong>Independent Journalism:</strong></p>
+<ul>
+<li>Stories that can't be taken down</li>
+<li>Source protection through encryption</li>
+<li>Distributed hosting by supporters</li>
+<li>Verifiable attribution and provenance</li>
+</ul>
+<p><strong>Community Forums:</strong></p>
+<ul>
+<li>Discussions without platform control</li>
+<li>Community governance through code</li>
+<li>Persistent threads and archives</li>
+<li>Resistant to deletion or manipulation</li>
+</ul>
+<p><strong>Key Advantage:</strong> Combines IPFS's permanence with dynamic updates and collaboration. Not just archiving but living, updating content that evolves over time.</p>
+<h2>Real-Time Data Synchronization</h2>
+<h3>The Synchronization Challenge</h3>
+<p>Many applications need multi-device, multi-user real-time sync:</p>
+<ul>
+<li>Collaborative editing and document sharing</li>
+<li>Chat and messaging applications</li>
+<li>Shared workspaces and project management</li>
+<li>Multiplayer interactions and gaming</li>
+</ul>
+<p>Traditional solutions require:</p>
+<ul>
+<li>Central server for coordination</li>
+<li>Ongoing operational costs</li>
+<li>Trust in third party service</li>
+<li>Single point of failure</li>
+</ul>
+<h3>Example: WeatherXM Collaborative Sensing</h3>
+<p>WeatherXM demonstrates distributed real-time data: &quot;WeatherXM configured thousands of smart weather vanes with IPFS client functionality to collaboratively share weather patterns from around the world&quot;<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>.</p>
+<p><strong>Architecture Benefits:</strong></p>
+<ul>
+<li>Sensors as P2P nodes</li>
+<li>Direct data sharing between devices</li>
+<li>No central aggregation server required</li>
+<li>Community-owned weather network</li>
+</ul>
+<h3>How RustDHT Enables This</h3>
+<p><strong>Real-Time Messaging:</strong>
+GossipSub protocol provides:</p>
+<ul>
+<li>Sub-second message propagation</li>
+<li>Topic-based routing and filtering</li>
+<li>Mesh network for reliability</li>
+<li>No message broker needed</li>
+</ul>
+<p><strong>State Synchronization:</strong>
+CRDT-based merging handles:</p>
+<ul>
+<li>Concurrent updates automatically</li>
+<li>Eventual consistency guaranteed</li>
+<li>Works across network partitions</li>
+<li>No coordination server required</li>
+</ul>
+<p><strong>Performance Targets:</strong></p>
+<ul>
+<li>Sub-100ms latency for operations</li>
+<li>10-20 TPS per node minimum</li>
+<li>Scales with network size</li>
+<li>Efficient resource usage</li>
+</ul>
+<h3>Potential Applications</h3>
+<p><strong>Collaborative Editing:</strong></p>
+<ul>
+<li>Simultaneous document editing (like Google Docs)</li>
+<li>Code collaboration and pair programming</li>
+<li>Design tool sharing and feedback</li>
+<li>Real-time whiteboards and brainstorming</li>
+</ul>
+<p><strong>Chat and Messaging:</strong></p>
+<ul>
+<li>Decentralized messaging applications</li>
+<li>Group chats and communities</li>
+<li>File sharing and media exchange</li>
+<li>Voice/video signaling coordination</li>
+</ul>
+<p><strong>Gaming and Interactive Media:</strong>
+Example from IPFS ecosystem: &quot;3S Studios built an IPFS plugin for Unity that reduced the content size of a game from 2 gigabytes to 40 megabytes&quot;<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>.</p>
+<p>RustDHT could enable:</p>
+<ul>
+<li>P2P multiplayer state synchronization</li>
+<li>Shared game worlds and persistent state</li>
+<li>Player-owned assets and inventories</li>
+<li>Community servers without hosting costs</li>
+</ul>
+<p><strong>IoT and Sensor Networks:</strong></p>
+<ul>
+<li>Distributed sensor data aggregation</li>
+<li>Edge computing coordination</li>
+<li>Smart home without cloud dependency</li>
+<li>Industrial monitoring and control</li>
+</ul>
+<p><strong>Key Advantage:</strong> Low latency P2P sync without operational costs. Rust performance enables resource-constrained devices to participate fully.</p>
+<h2>Decentralized Social Networks</h2>
+<h3>The Social Media Problem</h3>
+<p>Current social platforms:</p>
+<ul>
+<li>Extract value from user content and data</li>
+<li>Algorithmic timeline manipulation for engagement</li>
+<li>Arbitrary content moderation policies</li>
+<li>Account suspension without recourse</li>
+<li>Platform lock-in through network effects</li>
+</ul>
+<h3>Why Decentralization Matters</h3>
+<p><strong>Data Ownership:</strong>
+From GunDB documentation: &quot;User Space: data is cryptographically owned by a user, ensuring that no 'app admin' or 'website owner' can unilaterally modify it&quot;<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>.</p>
+<p><strong>Content Control:</strong></p>
+<ul>
+<li>Users choose their own algorithms and filters</li>
+<li>Multiple client implementations possible</li>
+<li>Portable social graph across applications</li>
+<li>Community governance and moderation</li>
+</ul>
+<h3>How RustDHT Enables This</h3>
+<p><strong>Graph Structure for Social Data:</strong></p>
+<p>User profiles, posts, and relationships naturally map to graph nodes:</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// User Profile Node</span>
+<span class="token punctuation">{</span>
+  <span class="token string-property property">"soul"</span><span class="token operator">:</span> <span class="token string">"user_alice"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"Alice"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"bio"</span><span class="token operator">:</span> <span class="token string">"Decentralization advocate"</span><span class="token punctuation">,</span> 
+  <span class="token string-property property">"avatar"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"ipfs_cid_hash"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"following"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"user_bob"</span><span class="token punctuation">,</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"user_carol"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Post Node</span>
+<span class="token punctuation">{</span>
+  <span class="token string-property property">"soul"</span><span class="token operator">:</span> <span class="token string">"post_12345"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"author"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"user_alice"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"Hello decentralized world!"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"timestamp"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"replies"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"post_67890"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>Natural Social Graph:</strong></p>
+<ul>
+<li>Followers/following as links between user nodes</li>
+<li>Posts linked to authors and topics</li>
+<li>Replies linked to parent posts</li>
+<li>Shares/reposts as new nodes with links</li>
+</ul>
+<p><strong>Privacy Tiers:</strong>
+From RustDHT's security model:</p>
+<ul>
+<li><strong>Public posts</strong>: Readable by anyone</li>
+<li><strong>Protected posts</strong>: Readable by all, only author can edit</li>
+<li><strong>Private posts</strong>: Encrypted, shared with specific users</li>
+</ul>
+<p><strong>Portable Identity:</strong>
+Cryptographic keys define identity:</p>
+<ul>
+<li>Not tied to specific platform or application</li>
+<li>Use same identity across different clients</li>
+<li>Can't be &quot;banned&quot; from the network</li>
+<li>Reputation built on verifiable history</li>
+</ul>
+<h3>Potential Applications</h3>
+<p><strong>Twitter/X Alternative:</strong></p>
+<ul>
+<li>Microblogging platform with user-controlled feeds</li>
+<li>Multiple client apps with different UX approaches</li>
+<li>Community moderation without central authority</li>
+<li>Algorithm transparency and user choice</li>
+</ul>
+<p><strong>Facebook Alternative:</strong></p>
+<ul>
+<li>Social profiles and connections</li>
+<li>Status updates and content sharing</li>
+<li>Groups and communities with self-governance</li>
+<li>Photo/video sharing via IPFS integration</li>
+</ul>
+<p><strong>Reddit Alternative:</strong></p>
+<ul>
+<li>Threaded discussions and communities</li>
+<li>Community-driven voting and ranking</li>
+<li>Subreddit-like topics with distributed moderation</li>
+<li>Moderation through validation rules and reputation</li>
+</ul>
+<p><strong>Instagram Alternative:</strong></p>
+<ul>
+<li>Photo and art sharing platform</li>
+<li>Artist portfolios and galleries</li>
+<li>Direct creator support and monetization</li>
+<li>Permanent content storage and provenance</li>
+</ul>
+<h3>Example: Digital Art Storage</h3>
+<p>From IPFS ecosystem: &quot;Digital artist Nancy Baker Cahill stores all of her full-resolution art assets using IPFS through NFT.storage. Resilience is important to me and having the work backed up to Filecoin means they'll be around for a long time.&quot;<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup></p>
+<p>RustDHT could add:</p>
+<ul>
+<li>Artist social graph and following</li>
+<li>Comments and engagement on artworks</li>
+<li>Sales and licensing metadata</li>
+<li>Provenance tracking and authenticity</li>
+</ul>
+<p><strong>Key Advantage:</strong> User data sovereignty combined with social features. Network effects without platform lock-in through interoperable protocols.</p>
+<h2>IoT Edge Devices and Distributed Data</h2>
+<h3>The Edge Computing Use Case</h3>
+<p>IoT devices often need:</p>
+<ul>
+<li>Local data processing and storage</li>
+<li>Coordination without cloud dependency</li>
+<li>Resilient operation during outages</li>
+<li>Cost-effective infrastructure</li>
+</ul>
+<h3>Example: Actyx Factory Floor</h3>
+<p>From IPFS ecosystem: &quot;By using IPFS private swarms, we were able to deploy a fleet of devices communicating mission critical data in a factory without any central infrastructure, which has allowed us to move much faster.&quot; - Roland Kuhn, Actyx<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup></p>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>No cloud dependency or ongoing costs</li>
+<li>Low latency (local network communication)</li>
+<li>Privacy (data stays on premises)</li>
+<li>Resilient to internet outages</li>
+</ul>
+<h3>How RustDHT Enables This</h3>
+<p><strong>Rust Performance:</strong>
+Critical for resource-constrained devices:</p>
+<ul>
+<li>Minimal memory footprint</li>
+<li>Low CPU usage and power consumption</li>
+<li>No garbage collection pauses</li>
+<li>Efficient binary size for embedded systems</li>
+</ul>
+<p><strong>Offline-First Design:</strong>
+Devices continue operating:</p>
+<ul>
+<li>During network partitions</li>
+<li>Without internet connectivity</li>
+<li>With intermittent connections</li>
+<li>Data syncs when available</li>
+</ul>
+<p><strong>P2P Coordination:</strong>
+Direct device communication:</p>
+<ul>
+<li>No cloud roundtrip latency</li>
+<li>Local discovery (mDNS)</li>
+<li>Mesh networking capabilities</li>
+<li>Automatic failover and redundancy</li>
+</ul>
+<h3>Potential Applications</h3>
+<p><strong>Smart Home Systems:</strong></p>
+<ul>
+<li>Devices coordinate locally</li>
+<li>No cloud dependency for basic functions</li>
+<li>Privacy by default (data stays local)</li>
+<li>Continues working during internet outages</li>
+</ul>
+<p><strong>Industrial IoT:</strong></p>
+<ul>
+<li>Factory floor coordination and monitoring</li>
+<li>Sensor data aggregation and analysis</li>
+<li>Quality control tracking and alerts</li>
+<li>Predictive maintenance without cloud</li>
+</ul>
+<p><strong>Agricultural Sensors:</strong></p>
+<ul>
+<li>Distributed soil and weather monitoring</li>
+<li>Irrigation coordination and optimization</li>
+<li>Harvest optimization and planning</li>
+<li>Community data sharing among farmers</li>
+</ul>
+<p><strong>Environmental Monitoring:</strong>
+Similar to WeatherXM:</p>
+<ul>
+<li>Air quality sensor networks</li>
+<li>Water quality monitoring systems</li>
+<li>Biodiversity tracking and research</li>
+<li>Community science and citizen monitoring</li>
+</ul>
+<p><strong>Vehicle Networks:</strong></p>
+<ul>
+<li>Fleet coordination and management</li>
+<li>Traffic data sharing and routing</li>
+<li>Parking availability and optimization</li>
+<li>Emergency alerts and communication</li>
+</ul>
+<p><strong>Key Advantage:</strong> Rust's efficiency enables running on low-power devices. P2P architecture eliminates cloud costs and reduces latency.</p>
+<h2>Data Transparency in Web3 and DAOs</h2>
+<h3>The Governance Challenge</h3>
+<p>Decentralized Autonomous Organizations need:</p>
+<ul>
+<li>Transparent decision-making processes</li>
+<li>Verifiable voting and consensus</li>
+<li>Immutable records and audit trails</li>
+<li>Distributed governance mechanisms</li>
+</ul>
+<h3>Example: Snapshot</h3>
+<p>From IPFS ecosystem: &quot;Snapshot uses IPFS to publicly record all proposals, votes, and data for more than 9,000 web3 projects &amp; DAOs&quot;<sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup>.</p>
+<p><strong>Why IPFS Works:</strong></p>
+<ul>
+<li>Content addressing ensures integrity</li>
+<li>Distributed storage prevents tampering</li>
+<li>Public verification of all records</li>
+<li>Permanent, immutable archives</li>
+</ul>
+<h3>How RustDHT Extends This</h3>
+<p><strong>Dynamic Governance:</strong>
+Beyond static records to active processes:</p>
+<p><strong>Proposal as Graph Structure:</strong></p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// Proposal Node</span>
+<span class="token punctuation">{</span>
+  <span class="token string-property property">"soul"</span><span class="token operator">:</span> <span class="token string">"proposal_123"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"title"</span><span class="token operator">:</span> <span class="token string">"Treasury Allocation Q4"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"description"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"options"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"Option A"</span><span class="token punctuation">,</span> <span class="token string">"Option B"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"discussion"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"thread_456"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"votes"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"vote_789"</span><span class="token punctuation">,</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"vote_790"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Vote Nodes</span>
+<span class="token punctuation">{</span>
+  <span class="token string-property property">"soul"</span><span class="token operator">:</span> <span class="token string">"vote_789"</span><span class="token punctuation">,</span> 
+  <span class="token string-property property">"voter"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"user_alice"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"choice"</span><span class="token operator">:</span> <span class="token string">"Option A"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"timestamp"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"signature"</span><span class="token operator">:</span> <span class="token string">"cryptographic_signature"</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>Real-Time Participation:</strong></p>
+<ul>
+<li>Live proposal updates and amendments</li>
+<li>Instant vote counting and results</li>
+<li>Discussion threads and deliberation</li>
+<li>Transparent process from start to finish</li>
+</ul>
+<p><strong>Verifiable Integrity:</strong>
+From security model:</p>
+<ul>
+<li>All votes cryptographically signed</li>
+<li>Validation rules prevent double-voting</li>
+<li>Audit trail preserved in graph structure</li>
+<li>No central authority can manipulate results</li>
+</ul>
+<h3>Potential Applications</h3>
+<p><strong>DAO Governance:</strong></p>
+<ul>
+<li>Proposal submission and discussion</li>
+<li>Member voting and consensus</li>
+<li>Treasury management and allocation</li>
+<li>Policy changes and protocol upgrades</li>
+</ul>
+<p><strong>Community Decision-Making:</strong></p>
+<ul>
+<li>Budget allocation and resource planning</li>
+<li>Feature prioritization and development</li>
+<li>Content moderation policies</li>
+<li>Leadership selection and roles</li>
+</ul>
+<p><strong>Cooperative Organizations:</strong></p>
+<ul>
+<li>Member governance and participation</li>
+<li>Resource allocation and sharing</li>
+<li>Leadership selection and accountability</li>
+<li>Bylaw changes and policy updates</li>
+</ul>
+<p><strong>Open Source Projects:</strong></p>
+<ul>
+<li>Feature proposals and roadmap planning</li>
+<li>Maintainer selection and responsibilities</li>
+<li>Funding distribution and grants</li>
+<li>Technical decisions and architecture</li>
+</ul>
+<p><strong>Key Advantage:</strong> Combines verifiable transparency with dynamic interaction. Not just recording votes but enabling the full governance process in a decentralized way.</p>
+<h2>Comparative Advantages</h2>
+<h3>RustDHT vs. Centralized Solutions</h3>
+<p><strong>Versus Traditional Databases:</strong></p>
+<ul>
+<li>No server infrastructure costs or maintenance</li>
+<li>Resilient to outages and attacks</li>
+<li>User data ownership and control</li>
+<li>Censorship resistant by design</li>
+</ul>
+<p><strong>Versus Cloud Services:</strong></p>
+<ul>
+<li>No recurring subscription fees</li>
+<li>Privacy by default (data stays local)</li>
+<li>Offline functionality without degradation</li>
+<li>No vendor lock-in or platform dependency</li>
+</ul>
+<p><strong>Versus Blockchain:</strong></p>
+<ul>
+<li>Lower latency for operations</li>
+<li>No transaction fees or gas costs</li>
+<li>Better scalability with network growth</li>
+<li>More flexible data model</li>
+</ul>
+<h3>RustDHT vs. Other Decentralized Solutions</h3>
+<p><strong>Versus IPFS:</strong></p>
+<ul>
+<li>Dynamic, mutable data (not just static files)</li>
+<li>Real-time collaboration capabilities</li>
+<li>Graph relationships and queries</li>
+<li>Application logic (not just storage)</li>
+</ul>
+<p><strong>Versus GunDB:</strong></p>
+<ul>
+<li>Rust performance and memory safety</li>
+<li>Better resource efficiency for constrained devices</li>
+<li>Modern libp2p networking stack</li>
+<li>Strong type system and compile-time guarantees</li>
+</ul>
+<p><strong>Versus Holochain:</strong></p>
+<ul>
+<li>Simpler mental model for developers</li>
+<li>Browser-native focus from the start</li>
+<li>Familiar database patterns and concepts</li>
+<li>Lower barrier to entry for adoption</li>
+</ul>
+<h2>Implementation Considerations</h2>
+<h3>When to Choose RustDHT</h3>
+<p><strong>Ideal Use Cases:</strong></p>
+<ul>
+<li>Offline-first requirements are critical</li>
+<li>Real-time collaboration needed</li>
+<li>User data ownership important</li>
+<li>Graph-like data relationships</li>
+<li>Browser deployment desired</li>
+<li>Performance is critical</li>
+</ul>
+<p><strong>Less Ideal:</strong></p>
+<ul>
+<li>Need strong consistency guarantees</li>
+<li>Require blockchain-style consensus</li>
+<li>Large file storage is primary need</li>
+<li>Simple key-value storage is sufficient</li>
+</ul>
+<h3>Development Roadmap</h3>
+<p><strong>Currently Available:</strong></p>
+<ul>
+<li>Native P2P server operational</li>
+<li>Multi-transport support (TCP, WebRTC)</li>
+<li>Real-time messaging via GossipSub</li>
+<li>Production deployment ready</li>
+</ul>
+<p><strong>In Development:</strong></p>
+<ul>
+<li>Browser WASM client (resolving dependencies)</li>
+<li>Full CRDT implementation</li>
+<li>Security layer and access control</li>
+<li>Graph query language</li>
+</ul>
+<p><strong>Future Enhancements:</strong></p>
+<ul>
+<li>Advanced CRDTs (sets, lists, collaborative text)</li>
+<li>Rich query language with graph traversal</li>
+<li>Secondary indexing for performance</li>
+<li>Cross-platform mobile support</li>
+</ul>
+<hr>
+<h2>Learn More</h2>
+<ul>
+<li><a href="/technical/">Technical Overview</a> - How these use cases are technically enabled</li>
+<li><a href="/why-decentralized/">Why Decentralized</a> - The principles behind these applications</li>
+<li><a href="/community/">Community</a> - How to get involved and build these applications</li>
+<li><a href="/roadmap/">Roadmap</a> - Timeline for implementing these capabilities</li>
+</ul>
+<hr>
+</div>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://ipfs.tech/">Anytype on IPFS</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://ipfs.tech/">IPFS Case Studies</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="https://github.com/rustdht/rustdht/blob/main/docs/PRD%20for%20Decentralized%20Graph%20Database_.md">RustDHT PRD: Security Model</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://ipfs.tech/">WeatherXM Collaborative Sensing</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p><a href="https://ipfs.tech/">3S Studios IPFS Plugin</a> <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p><a href="https://gun.eco/docs/">GunDB User Space Documentation</a> <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p><a href="https://ipfs.tech/">Nancy Baker Cahill Digital Art</a> <a href="#fnref7" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn8" class="footnote-item"><p><a href="https://ipfs.tech/">Actyx Factory Floor Case Study</a> <a href="#fnref8" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn9" class="footnote-item"><p><a href="https://ipfs.tech/">Snapshot DAO Governance</a> <a href="#fnref9" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </main>
+    
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">RustDHT</h3>
+                <p class="footer-description">A decentralized P2P graph database built with Rust and WebAssembly. Help build user-owned data infrastructure.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Project</h4>
+                <ul class="footer-links">
+                    <li><a href="/why-decentralized/">Why Decentralized</a></li>
+                    <li><a href="/technical/">Technical Overview</a></li>
+                    <li><a href="/use-cases/">Use Cases</a></li>
+                    <li><a href="/roadmap/">Roadmap</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Community</h4>
+                <ul class="footer-links">
+                    <li><a href="/community/">Get Involved</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/issues" target="_blank" rel="noopener">Issues</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/discussions" target="_blank" rel="noopener">Discussions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/wiki/main" target="_blank" rel="noopener">Documentation</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/docs" target="_blank" rel="noopener">Architecture</a></li>
+                    <li><a href="https://docs.libp2p.io/" target="_blank" rel="noopener">libp2p Docs</a></li>
+                    <li><a href="https://rustwasm.github.io/" target="_blank" rel="noopener">Rust + WASM</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 RustDHT Community. Open source project.
+            </p>
+            <p class="footer-note">
+                Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener">11ty</a> • 
+                Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script src="/assets/js/cards.js"></script>
+</body>
+</html>

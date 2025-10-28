@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Overview | RustDHT</title>
+    <meta name="description" content="Learn how RustDHT combines Rust, WebAssembly, libp2p, and CRDTs to create a high-performance decentralized database.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustdht.github.io/technical/">
+    <meta property="og:title" content="Technical Overview | RustDHT">
+    <meta property="og:description" content="Learn how RustDHT combines Rust, WebAssembly, libp2p, and CRDTs to create a high-performance decentralized database.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rustdht.github.io/technical/">
+    <meta property="twitter:title" content="Technical Overview | RustDHT">
+    <meta property="twitter:description" content="Learn how RustDHT combines Rust, WebAssembly, libp2p, and CRDTs to create a high-performance decentralized database.">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <nav class="nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="nav-logo-text">RustDHT</span>
+        </a>
+        
+        <div class="nav-menu" id="nav-menu">
+            <a href="/why-decentralized/" class="nav-link">Why Decentralized</a>
+            <a href="/technical/" class="nav-link">Technical</a>
+            <a href="/use-cases/" class="nav-link">Use Cases</a>
+            <a href="/community/" class="nav-link">Community</a>
+            <a href="/roadmap/" class="nav-link">Roadmap</a>
+            <a href="https://github.com/rustdht/rustdht" class="nav-link nav-link--external" target="_blank" rel="noopener">
+                GitHub
+                <svg class="nav-external-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3.5 3H8.5V8M8.5 3L3.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+        </button>
+    </div>
+</nav>
+
+    
+    <main>
+        <div class="content">
+<h1>Technical Overview</h1>
+<p>RustDHT combines proven decentralized patterns with modern implementation technologies to create a high-performance, browser-native P2P graph database.</p>
+<h2>Architecture Overview</h2>
+<p>The system operates as a network of interconnected peer nodes, where each node functions as both a client and a server, directly sharing data and resources. This design eliminates reliance on a single central authority for data storage or processing.</p>
+<h3>Core Technologies</h3>
+<p><strong>Rust for Performance and Safety</strong></p>
+<ul>
+<li>Memory safety without garbage collection</li>
+<li>Zero-cost abstractions and predictable performance</li>
+<li>Concurrency safety prevents data races at compile time</li>
+<li>Critical for P2P systems with many simultaneous connections</li>
+</ul>
+<p><strong>WebAssembly for Universal Compatibility</strong></p>
+<ul>
+<li>Near-native performance in web browsers</li>
+<li>Same Rust code runs natively and in browser</li>
+<li>Enables complex database operations client-side</li>
+<li>Works on desktop, mobile, and embedded devices</li>
+</ul>
+<h2>Peer-to-Peer Networking with libp2p</h2>
+<p>RustDHT uses libp2p, a modular networking framework that provides the foundation for building P2P applications. It's used by major projects including IPFS, Ethereum 2.0, and Polkadot.</p>
+<h3>Transport Layer</h3>
+<p><strong>Multi-Transport Support:</strong></p>
+<ul>
+<li><strong>TCP</strong>: Direct connections for native-to-native communication</li>
+<li><strong>WebRTC</strong>: Browser-to-native and browser-to-browser connections</li>
+<li><strong>WebSockets</strong>: Fallback transport for browser compatibility</li>
+</ul>
+<p><strong>Connection Features:</strong></p>
+<ul>
+<li>Encrypted connections by default (Noise protocol)</li>
+<li>Stream multiplexing (multiple logical streams over single connection)</li>
+<li>NAT traversal via STUN/TURN servers</li>
+<li>Automatic peer discovery and routing</li>
+</ul>
+<h3>Current Implementation Status</h3>
+<p>From the project architecture documentation:</p>
+<p><strong>Native Server (Operational):</strong></p>
+<ul>
+<li>Multi-transport listener supporting TCP and WebRTC</li>
+<li>Event-driven architecture using Tokio for async I/O</li>
+<li>GossipSub messaging for real-time communication</li>
+<li>Ping protocol for connection health monitoring</li>
+</ul>
+<p><strong>WASM Client (In Development):</strong></p>
+<ul>
+<li>Browser-compatible P2P node</li>
+<li>WebRTC-only transport layer (browser limitation)</li>
+<li>Resolving libp2p compatibility issues with WebSocket fallback</li>
+</ul>
+<h2>Distributed Hash Table (DHT)</h2>
+<p>The core data storage mechanism uses a Distributed Hash Table for decentralized key-value storage across the network.</p>
+<h3>How DHTs Work</h3>
+<p><strong>Consistent Hashing:</strong></p>
+<ul>
+<li>Data distributed evenly among participating nodes</li>
+<li>Each node responsible for specific range of keys</li>
+<li>Uses Kademlia algorithm with XOR-based distance metric</li>
+<li>O(log n) lookup complexity for efficient routing</li>
+</ul>
+<p><strong>Sharding and Replication:</strong></p>
+<ul>
+<li>Data sharded across network based on key hash</li>
+<li>Multiple copies stored on different nodes for fault tolerance</li>
+<li>Automatic load balancing as nodes join/leave</li>
+<li>Self-healing network topology</li>
+</ul>
+<h3>Storage Backend</h3>
+<p><strong>Browser Storage:</strong></p>
+<ul>
+<li>IndexedDB for structured data and large objects</li>
+<li>localStorage for simple key-value pairs</li>
+<li>Modular design allows other backends (SQLite-WASM planned)</li>
+<li>Browser nodes primarily serve as local cache</li>
+</ul>
+<p><strong>Consistency Model:</strong>
+The DHT operates under eventual consistency - updates may not be immediately visible everywhere, but all nodes converge to the same state over time. This prioritizes high availability and low latency over strong consistency<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.</p>
+<h2>Graph Data Model</h2>
+<p>Inspired by GunDB's flexible graph structure, data is organized as interconnected &quot;nodes&quot; with unique identifiers called &quot;souls&quot;.</p>
+<h3>Node Structure</h3>
+<pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+  <span class="token string-property property">"soul"</span><span class="token operator">:</span> <span class="token string">"user_alice"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"name"</span><span class="token operator">:</span> <span class="token string">"Alice"</span><span class="token punctuation">,</span> 
+  <span class="token string-property property">"age"</span><span class="token operator">:</span> <span class="token number">30</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"posts"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"post_1"</span><span class="token punctuation">,</span> <span class="token string-property property">"#"</span><span class="token operator">:</span> <span class="token string">"post_2"</span> <span class="token punctuation">}</span>  <span class="token comment">// Links to other nodes</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>Flexible Schema</strong>: No rigid structure required</li>
+<li><strong>Natural Relationships</strong>: Links between nodes create graph edges</li>
+<li><strong>Metadata Fields</strong>: Each node contains system information for security and conflict resolution</li>
+<li><strong>Hypergraph Support</strong>: Complex relationships through multiple links</li>
+</ul>
+<h3>Data Classification</h3>
+<p>The security model supports three data types:</p>
+<ul>
+<li><strong>Public Data</strong>: Readable by anyone, writable by anyone (unless signed)</li>
+<li><strong>Protected Data</strong>: Readable by anyone, writable only by owner</li>
+<li><strong>Private Data</strong>: Encrypted, accessible only to authorized users</li>
+</ul>
+<h2>Conflict Resolution with CRDTs</h2>
+<p>Conflict-Free Replicated Data Types ensure that concurrent updates merge automatically without coordination.</p>
+<h3>HAM Algorithm Inspiration</h3>
+<p>Drawing from GunDB's Hypothetical Amnesia Machine (HAM):</p>
+<ul>
+<li><strong>Last-Write-Wins</strong> with sophisticated ordering</li>
+<li><strong>Vector clocks</strong> for causality tracking</li>
+<li><strong>Machine-relative timestamps</strong> handle clock inconsistencies</li>
+<li><strong>Deferred updates</strong> prevent malicious timestamp manipulation</li>
+</ul>
+<h3>CRDT Implementation</h3>
+<p>For the MVP, a simple Last-Write-Wins (LWW) Register approach:</p>
+<ul>
+<li>Leverages metadata for ordering operations</li>
+<li>Guarantees eventual consistency across all replicas</li>
+<li>Enables offline-first operation with automatic sync</li>
+<li>Extensible architecture for advanced CRDT types</li>
+</ul>
+<h3>Practical Benefits</h3>
+<p><strong>For Users:</strong></p>
+<ul>
+<li>Seamless offline work with automatic synchronization</li>
+<li>No &quot;merge conflict&quot; dialogs to resolve</li>
+<li>Predictable outcomes from concurrent edits</li>
+</ul>
+<p><strong>For Developers:</strong></p>
+<ul>
+<li>Built-in conflict resolution</li>
+<li>No manual merge code required</li>
+<li>Extensible for custom data types</li>
+</ul>
+<h2>Performance Characteristics</h2>
+<h3>Current Targets</h3>
+<p><strong>Latency:</strong></p>
+<ul>
+<li>Sub-100ms for basic data operations</li>
+<li>Comparable to Holochain benchmarks (50ms write, 30ms read)</li>
+<li>Network conditions affect browser-to-browser connections</li>
+</ul>
+<p><strong>Throughput:</strong></p>
+<ul>
+<li>10-20 TPS minimum per node for key-value operations</li>
+<li>Scales proportionally with network participation</li>
+<li>GunDB benchmarks show 0.2-2ms for small node operations</li>
+</ul>
+<p><strong>Resource Usage:</strong></p>
+<ul>
+<li>Minimal CPU and memory footprint</li>
+<li>Critical for browser-based nodes</li>
+<li>Rust + WASM optimization for efficiency</li>
+</ul>
+<h3>Scalability Design</h3>
+<p><strong>Horizontal Scaling:</strong></p>
+<ul>
+<li>Adding nodes increases total capacity</li>
+<li>DHT architecture supports large numbers of nodes</li>
+<li>No single bottleneck as network grows</li>
+</ul>
+<p><strong>Network Effects:</strong>
+Unlike centralized systems that degrade under load, P2P networks become MORE resilient as they grow:</p>
+<ul>
+<li>Each new node adds capacity and redundancy</li>
+<li>Geographic distribution improves naturally</li>
+<li>Attack resistance increases with network size</li>
+</ul>
+<h2>Security Model</h2>
+<h3>Cryptographic Primitives</h3>
+<p><strong>Digital Signatures:</strong></p>
+<ul>
+<li>Every data modification cryptographically signed</li>
+<li>Links data back to its origin</li>
+<li>Makes tampering detectable</li>
+<li>Provides verifiable audit trail</li>
+</ul>
+<p><strong>Encryption:</strong></p>
+<ul>
+<li>Symmetric and asymmetric encryption for private data</li>
+<li>Content remains unreadable to unauthorized parties</li>
+<li>Even with data replicated across untrusted nodes</li>
+</ul>
+<h3>Access Control</h3>
+<p><strong>Cryptographic Ownership:</strong></p>
+<ul>
+<li>User's public key identifies them as data owner</li>
+<li>Private key grants write permissions to data space</li>
+<li>No central authority can override ownership</li>
+</ul>
+<p><strong>Validation Rules:</strong></p>
+<ul>
+<li>Distributed to all peers for collective verification</li>
+<li>Similar to Holochain's DNA rules</li>
+<li>Network identifies and isolates malicious actors</li>
+<li>Enables community-driven moderation</li>
+</ul>
+<h2>Current Status and Limitations</h2>
+<h3>What's Working</h3>
+<p><strong>Sprint 2 Complete:</strong></p>
+<ul>
+<li>Native server fully operational</li>
+<li>TCP and WebRTC transports</li>
+<li>GossipSub messaging working</li>
+<li>Ping protocol functional</li>
+<li>Docker deployment ready</li>
+</ul>
+<h3>Current Challenges</h3>
+<p><strong>Browser Client Blocked:</strong></p>
+<ul>
+<li>libp2p version compatibility issues</li>
+<li>WebRTC-websys lagging behind main libp2p</li>
+<li>Being addressed through WebSocket fallback</li>
+</ul>
+<p><strong>Infrastructure Dependencies:</strong>
+Despite P2P architecture, still requires:</p>
+<ul>
+<li>Bootstrap nodes for initial discovery</li>
+<li>STUN/TURN servers for NAT traversal</li>
+<li>Signaling server for WebRTC connections</li>
+</ul>
+<h3>Honest Assessment</h3>
+<p><strong>RustDHT is Currently a Prototype:</strong></p>
+<ul>
+<li>Not production-ready</li>
+<li>Many core features not yet implemented (full DHT, CRDTs)</li>
+<li>Limited testing and real-world validation</li>
+<li>Browser support incomplete</li>
+</ul>
+<p><strong>Broader Infrastructure Reality:</strong>
+Most computing infrastructure remains centralized:</p>
+<ul>
+<li>Cloud providers (AWS, Azure, Google)</li>
+<li>DNS infrastructure and certificate authorities</li>
+<li>Internet backbone corporate/state-owned</li>
+</ul>
+<h2>The Path Forward</h2>
+<h3>Pragmatic Approach</h3>
+<p>Rather than claiming to solve all problems, RustDHT:</p>
+<ul>
+<li>Starts with small communities and specific use cases</li>
+<li>Focuses on scenarios where P2P makes sense</li>
+<li>Learns from real-world deployment</li>
+<li>Gradually expands capabilities</li>
+<li>Maintains honest assessment of limitations</li>
+</ul>
+<h3>Scaling Advantage</h3>
+<p>The key insight: P2P networks become MORE resilient as they grow, unlike centralized systems that face bottlenecks. Starting small is not a limitation but a strategy for building antifragile systems.</p>
+<hr>
+<h2>Learn More</h2>
+<ul>
+<li><a href="/use-cases/">Use Cases</a> - Real-world applications enabled by this architecture</li>
+<li><a href="/why-decentralized/">Why Decentralized</a> - The principles behind these technical choices</li>
+<li><a href="/community/">Community</a> - How to contribute to development</li>
+<li><a href="/roadmap/">Roadmap</a> - Planned features and timeline</li>
+</ul>
+<hr>
+</div>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://github.com/rustdht/rustdht/blob/main/docs/PRD%20for%20Decentralized%20Graph%20Database_.md">RustDHT PRD: Eventual Consistency Model</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </main>
+    
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">RustDHT</h3>
+                <p class="footer-description">A decentralized P2P graph database built with Rust and WebAssembly. Help build user-owned data infrastructure.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Project</h4>
+                <ul class="footer-links">
+                    <li><a href="/why-decentralized/">Why Decentralized</a></li>
+                    <li><a href="/technical/">Technical Overview</a></li>
+                    <li><a href="/use-cases/">Use Cases</a></li>
+                    <li><a href="/roadmap/">Roadmap</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Community</h4>
+                <ul class="footer-links">
+                    <li><a href="/community/">Get Involved</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/issues" target="_blank" rel="noopener">Issues</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/discussions" target="_blank" rel="noopener">Discussions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-heading">Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/wiki/main" target="_blank" rel="noopener">Documentation</a></li>
+                    <li><a href="https://github.com/rustdht/rustdht/tree/main/docs" target="_blank" rel="noopener">Architecture</a></li>
+                    <li><a href="https://docs.libp2p.io/" target="_blank" rel="noopener">libp2p Docs</a></li>
+                    <li><a href="https://rustwasm.github.io/" target="_blank" rel="noopener">Rust + WASM</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 RustDHT Community. Open source project.
+            </p>
+            <p class="footer-note">
+                Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener">11ty</a> • 
+                Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script src="/assets/js/cards.js"></script>
+</body>
+</html>

@@ -1,9 +1,10 @@
 {
   "title": "RustDHT",
   "description": "A decentralized P2P graph database built with Rust and WebAssembly. Help build user-owned data infrastructure.",
-  "url": "https://rustdht.github.io",
+  "url": "https://xcorat.github.io/RustDHT",
+  "baseUrl": "/RustDHT",
   "author": "RustDHT Community",
-  "github": "https://github.com/rustdht/rustdht",
+  "github": "https://github.com/xcorat/RustDHT",
   "tagline": "Help Build User-Owned Data Infrastructure",
   "subtitle": "A decentralized P2P graph database that puts users in control of their data"
 }

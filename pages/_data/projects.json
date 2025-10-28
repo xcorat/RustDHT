@@ -1,0 +1,58 @@
+[
+  {
+    "name": "IPFS",
+    "description": "Content-addressed distributed storage",
+    "summary": "Peer-to-peer content delivery network with 280,000+ nodes. Files identified by cryptographic hash, not location.",
+    "url": "https://ipfs.tech",
+    "category": "storage"
+  },
+  {
+    "name": "GunDB",
+    "description": "Graph database, RustDHT's inspiration",
+    "summary": "Decentralized graph database with offline-first design and sophisticated conflict resolution (HAM algorithm).",
+    "url": "https://gun.eco",
+    "category": "database"
+  },
+  {
+    "name": "Holochain",
+    "description": "Agent-centric distributed apps",
+    "summary": "Distributed app framework where the community itself functions as infrastructure. No global consensus needed.",
+    "url": "https://holochain.org",
+    "category": "platform"
+  },
+  {
+    "name": "Polkadot",
+    "description": "Blockchain interoperability",
+    "summary": "Enables different blockchains to transfer messages and value in a trust-free fashion via shared security.",
+    "url": "https://polkadot.network",
+    "category": "blockchain"
+  },
+  {
+    "name": "Matrix",
+    "description": "Federated communication",
+    "summary": "Open network for secure, decentralized communication. Powers Element and government communications.",
+    "url": "https://matrix.org",
+    "category": "communication"
+  },
+  {
+    "name": "Mastodon",
+    "description": "Federated social networking",
+    "summary": "Part of the Fediverse using ActivityPub protocol. Millions of users across interoperable instances.",
+    "url": "https://joinmastodon.org",
+    "category": "social"
+  },
+  {
+    "name": "Nostr",
+    "description": "Simple, resilient social protocol",
+    "summary": "Cryptographic identity with relay-based architecture. Growing ecosystem of decentralized social apps.",
+    "url": "https://nostr.com",
+    "category": "social"
+  },
+  {
+    "name": "Syncthing",
+    "description": "P2P file synchronization",
+    "summary": "Continuous file synchronization between devices without central server. Encrypted transfers, cross-platform.",
+    "url": "https://syncthing.net",
+    "category": "sync"
+  }
+]

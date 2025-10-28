@@ -1,0 +1,19 @@
+{
+  "name": "rustdht-website",
+  "version": "1.0.0",
+  "description": "RustDHT project website built with 11ty",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "start": "eleventy --serve",
+    "clean": "rm -rf docs"
+  },
+  "keywords": ["p2p", "rust", "webassembly", "decentralized", "database"],
+  "author": "RustDHT Community",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "markdown-it-footnote": "^3.0.3",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0"
+  }
+}
